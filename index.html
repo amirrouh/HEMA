@@ -207,7 +207,6 @@
                 padding-top: 90px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                min-height: 100vh;
             "
         >
             <div class="container">
@@ -301,7 +300,6 @@
                 padding-top: 90px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                min-height: 100vh;
             "
         >
             <div class="container">
@@ -451,7 +449,6 @@
                 padding-top: 90px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                min-height: 100vh;
             "
         >
             <div class="container">
@@ -544,10 +541,26 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
-        <div id="viewer-container" class="container mt-3" style="display: none">
+            <!-- Modern Separator -->
+            <div id="viewer-separator" class="container mt-4 mb-4" style="display: none;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+                            <div class="mx-3">
+                                <span class="badge bg-white text-muted border shadow-sm px-3 py-2">
+                                    <i class="fas fa-chart-line me-2"></i>Visualization
+                                </span>
+                            </div>
+                            <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
+            <div id="viewer-container" class="container" style="display: none">
             <div class="row">
                 <div class="col-12">
                     <div class="card border-0 shadow-lg">
@@ -586,7 +599,7 @@
             </div>
 
             <!-- Segmentation Controls (only for segmentation mode) -->
-            <div class="row mt-4" id="controls" style="display: none">
+            <div class="row mt-3" id="controls" style="display: none">
                 <div class="col-12">
                     <div class="card border-0 shadow">
                         <div class="card-body">
@@ -695,6 +708,8 @@
                     "none";
                 document.getElementById("mode-text").style.display = "none";
                 document.getElementById("viewer-container").style.display =
+                    "none";
+                document.getElementById("viewer-separator").style.display =
                     "none";
 
                 // Show landing page
