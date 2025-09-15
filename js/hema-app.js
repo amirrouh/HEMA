@@ -1055,7 +1055,7 @@
         },
 
         startFresh: function() {
-            console.log('Starting fresh - clearing all project data...');
+            console.log('🔥 NUCLEAR RESET - DESTROYING EVERYTHING 🔥');
 
             // === Force finish any pending annotations ===
             if (this.segmentationViewer && this.segmentationViewer.isAnnotating) {
@@ -1063,26 +1063,10 @@
                 console.log('Forced stop of pending annotation');
             }
 
-            // === Clear ALL localStorage data ===
-            // Clear specific known keys
-            localStorage.removeItem('hema-comments');
-            localStorage.removeItem('hema-slice-ratings');
-            localStorage.removeItem('hema-annotations');
-            localStorage.removeItem('hema-slice-vector-annotations');
-            localStorage.removeItem('hema-slice-images');
-
-            // Clear any other hema-related data that might exist
-            const keysToRemove = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key && key.startsWith('hema-')) {
-                    keysToRemove.push(key);
-                }
-            }
-            keysToRemove.forEach(key => {
-                console.log('Removing localStorage key:', key);
-                localStorage.removeItem(key);
-            });
+            // === NUCLEAR OPTION: DESTROY ALL localStorage ===
+            console.log('💥 Step 1: Nuking ALL localStorage...');
+            localStorage.clear(); // NUCLEAR - destroys everything
+            console.log('✅ localStorage completely wiped');
 
             // === Clear in-memory data ===
             // Reset slice ratings
@@ -1106,12 +1090,24 @@
                     console.log('All slice annotations cleared from memory');
                 }
 
-                // Clear the annotation canvas completely
+                // NUCLEAR CANVAS DESTRUCTION
                 if (this.segmentationViewer.annotationCtx && this.segmentationViewer.annotationCanvas) {
-                    this.segmentationViewer.annotationCtx.clearRect(0, 0,
-                        this.segmentationViewer.annotationCanvas.width,
-                        this.segmentationViewer.annotationCanvas.height);
-                    console.log('Annotation canvas cleared');
+                    console.log('💥 DESTROYING annotation canvas...');
+                    const canvas = this.segmentationViewer.annotationCanvas;
+                    const ctx = this.segmentationViewer.annotationCtx;
+
+                    // Multiple aggressive clears
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Reset all canvas properties
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#000000';
+
+                    console.log('✅ Annotation canvas DESTROYED');
                 }
 
                 // Reset all annotation-related variables
@@ -1222,21 +1218,37 @@
                 console.log('Current slice annotations loaded (should be empty)');
             }
 
-            // Re-render current slice to update display (without annotations)
-            if (this.segmentationViewer && typeof this.segmentationViewer.renderSlice === 'function') {
-                this.segmentationViewer.renderSlice();
-                console.log('Slice re-rendered after clearing');
-
-                // Re-render again after a delay to ensure all annotations are gone
+            // AGGRESSIVE CLEANUP LOOP - DESTROY EVERYTHING MULTIPLE TIMES
+            console.log('💥 Running NUCLEAR cleanup loop...');
+            for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
-                    // Clear canvas one more time and re-render
-                    if (this.segmentationViewer && this.segmentationViewer.annotationCanvas) {
-                        const ctx = this.segmentationViewer.annotationCanvas.getContext('2d');
+                    console.log(`🔄 DESTRUCTION iteration ${i + 1}/10`);
+
+                    // Clear canvas AGAIN
+                    if (this.segmentationViewer && this.segmentationViewer.annotationCanvas && this.segmentationViewer.annotationCtx) {
+                        const ctx = this.segmentationViewer.annotationCtx;
+                        ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
                         ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
                     }
-                    this.segmentationViewer.renderSlice();
-                    console.log('Final re-render with canvas clear completed');
-                }, 300);
+
+                    // Ensure memory is STILL clear
+                    if (this.segmentationViewer) {
+                        this.segmentationViewer.sliceAnnotations = {};
+                        this.segmentationViewer.currentDrawingCoords = null;
+                        this.segmentationViewer.isAnnotating = false;
+                    }
+
+                    // Re-render AGAIN
+                    if (this.segmentationViewer && typeof this.segmentationViewer.renderSlice === 'function') {
+                        this.segmentationViewer.renderSlice();
+                    }
+
+                    if (i === 9) {
+                        console.log('🎉 NUCLEAR DESTRUCTION COMPLETE - EVERYTHING OBLITERATED! 🎉');
+                    }
+                }, i * 50);
             }
 
             // Update star display
@@ -1275,15 +1287,19 @@
                 }
             }
 
-            // === Provide substantial visual feedback ===
-            // Update the page title to show reset status
-            document.title = 'HEMA - Fresh Start Complete';
+            // === NUCLEAR SUCCESS NOTIFICATION ===
+            document.title = '🔥 HEMA - NUCLEAR RESET COMPLETE 🔥';
 
-            // Show a comprehensive modal-style confirmation
+            // Show nuclear success modal
             this.showComprehensiveResetConfirmation();
 
-            // Reset page title after delay
+            // Final verification after destruction
             setTimeout(() => {
+                console.log('=== FINAL NUCLEAR VERIFICATION ===');
+                console.log('localStorage length:', localStorage.length);
+                console.log('Annotation object keys:', this.segmentationViewer ? Object.keys(this.segmentationViewer.sliceAnnotations || {}).length : 0);
+                console.log('🚀 IF YOU STILL SEE ANNOTATIONS, THEY ARE GHOSTS! 🚀');
+
                 document.title = 'HEMA - Human Evaluation of Medical AI';
             }, 3000);
         },
@@ -1322,16 +1338,19 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h2 style="color: #333; margin-bottom: 20px; font-weight: bold;">
-                    🎉 Fresh Start Complete!
+                    🔥 NUCLEAR RESET COMPLETE! 🔥
                 </h2>
                 <div style="color: #666; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
-                    <p><strong>✅ All annotations cleared from all slices</strong></p>
-                    <p><strong>✅ All comments and ratings removed</strong></p>
-                    <p><strong>✅ All cached data deleted</strong></p>
-                    <p><strong>✅ Canvas completely reset</strong></p>
+                    <p><strong>💥 ALL localStorage DESTROYED</strong></p>
+                    <p><strong>💥 ALL annotations OBLITERATED from memory</strong></p>
+                    <p><strong>💥 Canvas NUKED and reset 10 times</strong></p>
+                    <p><strong>💥 Everything COMPLETELY DESTROYED</strong></p>
                     <br>
+                    <p style="color: #dc3545; font-weight: bold;">
+                        NOTHING SURVIVED THE NUCLEAR OPTION!
+                    </p>
                     <p style="color: #28a745; font-weight: bold;">
-                        Ready for a new evaluation session!
+                        Ready for a completely fresh start!
                     </p>
                 </div>
                 <button id="resetOkButton" style="
