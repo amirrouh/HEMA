@@ -1124,6 +1124,12 @@
                     console.log('Empty annotations saved to localStorage');
                 }
 
+                // Force reload annotations from now-empty localStorage
+                if (typeof this.segmentationViewer.loadSliceAnnotations === 'function') {
+                    this.segmentationViewer.loadSliceAnnotations();
+                    console.log('Annotations reloaded from cleared localStorage');
+                }
+
                 // Clear annotation mode
                 if (typeof this.segmentationViewer.setAnnotationMode === 'function') {
                     this.segmentationViewer.setAnnotationMode(null);
@@ -1203,11 +1209,17 @@
             });
 
             // === Re-render and update display ===
-            // Force clear canvas again and re-render multiple times to ensure clean state
+            // Force clear canvas multiple times and re-render to ensure clean state
             if (this.segmentationViewer && this.segmentationViewer.annotationCanvas) {
                 const ctx = this.segmentationViewer.annotationCanvas.getContext('2d');
                 ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
                 console.log('Canvas cleared again before re-render');
+            }
+
+            // Force load current slice annotation (which should now be empty)
+            if (this.segmentationViewer && typeof this.segmentationViewer.loadCurrentSliceAnnotation === 'function') {
+                this.segmentationViewer.loadCurrentSliceAnnotation();
+                console.log('Current slice annotations loaded (should be empty)');
             }
 
             // Re-render current slice to update display (without annotations)
@@ -1217,8 +1229,13 @@
 
                 // Re-render again after a delay to ensure all annotations are gone
                 setTimeout(() => {
+                    // Clear canvas one more time and re-render
+                    if (this.segmentationViewer && this.segmentationViewer.annotationCanvas) {
+                        const ctx = this.segmentationViewer.annotationCanvas.getContext('2d');
+                        ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
+                    }
                     this.segmentationViewer.renderSlice();
-                    console.log('Final re-render completed');
+                    console.log('Final re-render with canvas clear completed');
                 }, 300);
             }
 
@@ -1242,6 +1259,20 @@
             if (this.segmentationViewer && this.segmentationViewer.sliceAnnotations) {
                 const annotationCount = Object.keys(this.segmentationViewer.sliceAnnotations).length;
                 console.log('Current sliceAnnotations count:', annotationCount);
+                console.log('Current sliceAnnotations object:', this.segmentationViewer.sliceAnnotations);
+            }
+
+            // Check what's actually in localStorage for annotations
+            const storedAnnotations = localStorage.getItem('hema-slice-vector-annotations');
+            console.log('Stored annotations in localStorage:', storedAnnotations);
+
+            // Additional verification
+            console.log('=== ADDITIONAL VERIFICATION ===');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('hema-')) {
+                    console.log(`LocalStorage key "${key}":`, localStorage.getItem(key));
+                }
             }
 
             // === Provide substantial visual feedback ===
