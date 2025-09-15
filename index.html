@@ -1,184 +1,653 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEMA - Human Evaluation of Medical AI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient fixed-top" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#" onclick="showLanding()">
-                <i class="fas fa-heartbeat me-2"></i>HEMA
-            </a>
-            <span class="navbar-text text-white-50">
-                Human Evaluation of Medical AI
-            </span>
-        </div>
-    </nav>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HEMA - Human Evaluation of Medical AI</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav
+            class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm"
+            style="
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            "
+        >
+            <div class="container-fluid px-4">
+                <a
+                    class="navbar-brand fw-bold d-flex align-items-center"
+                    href="#"
+                    onclick="showLanding()"
+                    style="color: #6366f1; font-size: 1.5rem"
+                >
+                    <div
+                        class="d-flex align-items-center justify-content-center me-3"
+                        style="
+                            width: 40px;
+                            height: 40px;
+                            background: linear-gradient(
+                                135deg,
+                                #6366f1 0%,
+                                #8b5cf6 100%
+                            );
+                            border-radius: 12px;
+                        "
+                    >
+                        <i
+                            class="fas fa-heartbeat text-white"
+                            style="font-size: 1.2rem"
+                        ></i>
+                    </div>
+                    <span style="letter-spacing: -0.5px">HEMA</span>
+                </a>
+                <span
+                    class="navbar-text ms-3"
+                    style="color: #64748b; font-size: 0.95rem; font-weight: 500"
+                >
+                    Human Evaluation of Medical AI Platform
+                </span>
+            </div>
+        </nav>
 
-    <!-- Landing Page -->
-    <div id="landing-page" class="min-vh-100 d-flex align-items-center" style="padding-top: 60px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
-        <div class="container">
+        <!-- Landing Page -->
+        <div
+            id="landing-page"
+            class="min-vh-100 d-flex align-items-center"
+            style="
+                padding-top: 60px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            "
+        >
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h1
+                            class="display-3 fw-bold mb-3"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #667eea 0%,
+                                    #764ba2 100%
+                                );
+                                -webkit-background-clip: text;
+                                background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                            "
+                        >
+                            HEMA Platform
+                        </h1>
+                        <p class="lead text-muted">
+                            Human Evaluation of Medical AI Platform
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-10 col-xl-8 mx-auto">
+                        <div class="row g-4 justify-content-center">
+                            <div class="col-md-6 col-lg-5">
+                                <div
+                                    class="card h-100 border-0 shadow-lg hover-lift"
+                                >
+                                    <div
+                                        class="card-body text-center d-flex flex-column p-4"
+                                    >
+                                        <div
+                                            class="icon-wrapper mb-3 mx-auto"
+                                            style="
+                                                width: 80px;
+                                                height: 80px;
+                                                background: linear-gradient(
+                                                    135deg,
+                                                    #11998e 0%,
+                                                    #38ef7d 100%
+                                                );
+                                                border-radius: 50%;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                            "
+                                        >
+                                            <i
+                                                class="fas fa-layer-group fa-2x text-white"
+                                            ></i>
+                                        </div>
+                                        <h4 class="card-title fw-bold">
+                                            Segmentation
+                                        </h4>
+                                        <p
+                                            class="card-text text-muted flex-grow-1"
+                                        >
+                                            Analyze medical image segmentation
+                                            with overlay visualization and label
+                                            category detection.
+                                        </p>
+                                        <button
+                                            class="btn btn-lg btn-gradient-success w-100"
+                                            onclick="showMode('segmentation')"
+                                        >
+                                            <i
+                                                class="fas fa-layer-group me-2"
+                                            ></i
+                                            >Start Evaluation
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-5">
+                                <div
+                                    class="card h-100 border-0 shadow-lg hover-lift"
+                                >
+                                    <div
+                                        class="card-body text-center d-flex flex-column p-4"
+                                    >
+                                        <div
+                                            class="icon-wrapper mb-3 mx-auto"
+                                            style="
+                                                width: 80px;
+                                                height: 80px;
+                                                background: linear-gradient(
+                                                    135deg,
+                                                    #fa709a 0%,
+                                                    #fee140 100%
+                                                );
+                                                border-radius: 50%;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                            "
+                                        >
+                                            <i
+                                                class="fas fa-file-alt fa-2x text-white"
+                                            ></i>
+                                        </div>
+                                        <h4 class="card-title fw-bold">
+                                            Text Analysis
+                                        </h4>
+                                        <p
+                                            class="card-text text-muted flex-grow-1"
+                                        >
+                                            Evaluate AI-generated medical text,
+                                            reports, and natural language
+                                            processing outputs.
+                                        </p>
+                                        <button
+                                            class="btn btn-lg btn-gradient-info w-100"
+                                            onclick="showMode('text')"
+                                        >
+                                            <i class="fas fa-file-alt me-2"></i
+                                            >Start Evaluation
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Evaluation Mode -->
+        <div
+            id="mode-3d"
+            class="min-vh-100"
+            style="
+                display: none;
+                padding-top: 76px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            "
+        >
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center mb-4">
+                            <button
+                                class="btn btn-light shadow-sm"
+                                onclick="showLanding()"
+                            >
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </button>
+                            <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                                3D Model Evaluation
+                            </h2>
+                            <div style="width: 73px"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div
+                                        class="icon-wrapper me-3"
+                                        style="
+                                            width: 48px;
+                                            height: 48px;
+                                            background: linear-gradient(
+                                                135deg,
+                                                #667eea 0%,
+                                                #764ba2 100%
+                                            );
+                                            border-radius: 12px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        "
+                                    >
+                                        <i class="fas fa-cube text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">
+                                            3D Mesh Upload
+                                        </h5>
+                                        <small class="text-muted"
+                                            >STL Format Supported</small
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    class="upload-area p-4 border-2 border-dashed rounded-3 text-center"
+                                    style="
+                                        background: #f8f9fa;
+                                        border-color: #dee2e6 !important;
+                                    "
+                                >
+                                    <i
+                                        class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"
+                                    ></i>
+                                    <p class="mb-2">
+                                        Drag and drop your STL file here or
+                                    </p>
+                                    <input
+                                        type="file"
+                                        id="stlFile"
+                                        class="form-control"
+                                        accept=".stl"
+                                        style="max-width: 300px; margin: 0 auto"
+                                    />
+                                    <small
+                                        class="form-text text-muted mt-2 d-block"
+                                        >Supports binary and ASCII STL
+                                        formats</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segmentation Mode -->
+        <div
+            id="mode-segmentation"
+            class="min-vh-100"
+            style="
+                display: none;
+                padding-top: 76px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            "
+        >
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center mb-4">
+                            <button
+                                class="btn btn-light shadow-sm"
+                                onclick="showLanding()"
+                            >
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </button>
+                            <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                                Segmentation Evaluation
+                            </h2>
+                            <div style="width: 73px"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-lg h-100">
+                                    <div class="card-body p-4">
+                                        <div
+                                            class="d-flex align-items-center mb-3"
+                                        >
+                                            <div
+                                                class="icon-wrapper me-3"
+                                                style="
+                                                    width: 48px;
+                                                    height: 48px;
+                                                    background: linear-gradient(
+                                                        135deg,
+                                                        #11998e 0%,
+                                                        #38ef7d 100%
+                                                    );
+                                                    border-radius: 12px;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                "
+                                            >
+                                                <i
+                                                    class="fas fa-image text-white"
+                                                ></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0 fw-bold">
+                                                    Medical Image
+                                                </h5>
+                                                <small class="text-muted"
+                                                    >Base scan data</small
+                                                >
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="upload-area p-3 border-2 border-dashed rounded-3"
+                                            style="
+                                                background: #f8f9fa;
+                                                border-color: #dee2e6 !important;
+                                            "
+                                        >
+                                            <input
+                                                type="file"
+                                                id="imageFile"
+                                                class="form-control mb-2"
+                                                accept=".nrrd,.nii,.nii.gz"
+                                            />
+                                            <small class="form-text text-muted"
+                                                >NRRD, NIfTI (.nii/.nii.gz)
+                                                formats</small
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-lg h-100">
+                                    <div class="card-body p-4">
+                                        <div
+                                            class="d-flex align-items-center mb-3"
+                                        >
+                                            <div
+                                                class="icon-wrapper me-3"
+                                                style="
+                                                    width: 48px;
+                                                    height: 48px;
+                                                    background: linear-gradient(
+                                                        135deg,
+                                                        #f093fb 0%,
+                                                        #f5576c 100%
+                                                    );
+                                                    border-radius: 12px;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                "
+                                            >
+                                                <i
+                                                    class="fas fa-tags text-white"
+                                                ></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0 fw-bold">
+                                                    Segmentation Labels
+                                                </h5>
+                                                <small class="text-muted"
+                                                    >Overlay annotations</small
+                                                >
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="upload-area p-3 border-2 border-dashed rounded-3"
+                                            style="
+                                                background: #f8f9fa;
+                                                border-color: #dee2e6 !important;
+                                            "
+                                        >
+                                            <input
+                                                type="file"
+                                                id="labelFile"
+                                                class="form-control mb-2"
+                                                accept=".nrrd,.nii,.nii.gz"
+                                            />
+                                            <small class="form-text text-muted"
+                                                >Must match image
+                                                dimensions</small
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Analysis Mode -->
+        <div
+            id="mode-text"
+            class="min-vh-100"
+            style="
+                display: none;
+                padding-top: 76px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            "
+        >
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex align-items-center mb-4">
+                            <button
+                                class="btn btn-light shadow-sm"
+                                onclick="showLanding()"
+                            >
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </button>
+                            <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                                Text Analysis Evaluation
+                            </h2>
+                            <div style="width: 73px"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="card border-0 shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div
+                                        class="icon-wrapper me-3"
+                                        style="
+                                            width: 48px;
+                                            height: 48px;
+                                            background: linear-gradient(
+                                                135deg,
+                                                #fa709a 0%,
+                                                #fee140 100%
+                                            );
+                                            border-radius: 12px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        "
+                                    >
+                                        <i
+                                            class="fas fa-file-alt text-white"
+                                        ></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">
+                                            Medical Text Analysis
+                                        </h5>
+                                        <small class="text-muted"
+                                            >Evaluate AI-generated medical
+                                            content</small
+                                        >
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label
+                                        for="textInput"
+                                        class="form-label fw-semibold"
+                                        >Input Text</label
+                                    >
+                                    <textarea
+                                        id="textInput"
+                                        class="form-control"
+                                        rows="12"
+                                        placeholder="Paste AI-generated medical text, reports, or clinical notes here for evaluation..."
+                                        style="
+                                            font-family:
+                                                &quot;Inter&quot;, sans-serif;
+                                            line-height: 1.6;
+                                        "
+                                    ></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button
+                                        class="btn btn-gradient-primary btn-lg px-4"
+                                    >
+                                        <i class="fas fa-microscope me-2"></i
+                                        >Analyze Text
+                                    </button>
+                                    <button
+                                        class="btn btn-outline-secondary btn-lg px-4"
+                                    >
+                                        <i class="fas fa-upload me-2"></i>Upload
+                                        File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
+        <div id="viewer-container" class="container mt-4" style="display: none">
             <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h1 class="display-3 fw-bold mb-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
-                        HEMA Platform
-                    </h1>
-                    <p class="lead text-muted">Advanced Medical AI Evaluation System</p>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-lg-10 col-xl-8 mx-auto">
-                    <div class="row g-4">
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 border-0 shadow-lg hover-lift">
-                                <div class="card-body text-center d-flex flex-column p-4">
-                                    <div class="icon-wrapper mb-3 mx-auto" style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fas fa-cube fa-2x text-white"></i>
-                                    </div>
-                                    <h4 class="card-title fw-bold">3D Evaluation</h4>
-                                    <p class="card-text text-muted flex-grow-1">Evaluate 3D medical models and STL files with interactive visualization and depth perception.</p>
-                                    <button class="btn btn-lg btn-gradient-primary w-100" onclick="showMode('3d')">
-                                        <i class="fas fa-cube me-2"></i>Start 3D
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 border-0 shadow-lg hover-lift">
-                                <div class="card-body text-center d-flex flex-column p-4">
-                                    <div class="icon-wrapper mb-3 mx-auto" style="width: 80px; height: 80px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fas fa-layer-group fa-2x text-white"></i>
-                                    </div>
-                                    <h4 class="card-title fw-bold">Segmentation</h4>
-                                    <p class="card-text text-muted flex-grow-1">Analyze medical image segmentation with overlay visualization and label category detection.</p>
-                                    <button class="btn btn-lg btn-gradient-success w-100" onclick="showMode('segmentation')">
-                                        <i class="fas fa-layer-group me-2"></i>Start Segmentation
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 border-0 shadow-lg hover-lift">
-                                <div class="card-body text-center d-flex flex-column p-4">
-                                    <div class="icon-wrapper mb-3 mx-auto" style="width: 80px; height: 80px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fas fa-file-alt fa-2x text-white"></i>
-                                    </div>
-                                    <h4 class="card-title fw-bold">Text Analysis</h4>
-                                    <p class="card-text text-muted flex-grow-1">Evaluate AI-generated medical text, reports, and natural language processing outputs.</p>
-                                    <button class="btn btn-lg btn-gradient-info w-100" onclick="showMode('text')">
-                                        <i class="fas fa-file-alt me-2"></i>Start Text
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3D Evaluation Mode -->
-    <div id="mode-3d" class="min-vh-100" style="display: none; padding-top: 76px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
-        <div class="container">
-            <div class="row mb-4">
                 <div class="col-12">
-                    <div class="d-flex align-items-center mb-4">
-                        <button class="btn btn-light shadow-sm" onclick="showLanding()">
-                            <i class="fas fa-arrow-left me-2"></i>Back
-                        </button>
-                        <h2 class="flex-grow-1 text-center mb-0 fw-bold">3D Model Evaluation</h2>
-                        <div style="width: 73px;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
                     <div class="card border-0 shadow-lg">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="icon-wrapper me-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-cube text-white"></i>
+                        <div class="card-body p-0">
+                            <div id="viewer" class="viewer-container">
+                                <!-- Segmentation Viewer -->
+                                <div
+                                    id="canvas-container"
+                                    style="display: none"
+                                >
+                                    <canvas id="imageCanvas"></canvas>
+                                    <canvas id="labelCanvas"></canvas>
                                 </div>
-                                <div>
-                                    <h5 class="mb-0 fw-bold">3D Mesh Upload</h5>
-                                    <small class="text-muted">STL Format Supported</small>
+                                <!-- 3D STL Viewer -->
+                                <div id="stl-container" style="display: none">
+                                    <canvas id="stlCanvas"></canvas>
+                                    <div class="mt-2 text-center">
+                                        <small class="text-muted">
+                                            <strong>Controls:</strong> Mouse:
+                                            drag to rotate, scroll to zoom •
+                                            <strong>W</strong>: wireframe/solid
+                                            • <strong>F</strong>: toggle fog •
+                                            <strong>R</strong>: reset camera
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="upload-area p-4 border-2 border-dashed rounded-3 text-center" style="background: #f8f9fa; border-color: #dee2e6 !important;">
-                                <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
-                                <p class="mb-2">Drag and drop your STL file here or</p>
-                                <input type="file" id="stlFile" class="form-control" accept=".stl" style="max-width: 300px; margin: 0 auto;">
-                                <small class="form-text text-muted mt-2 d-block">Supports binary and ASCII STL formats</small>
+                                <div
+                                    id="error"
+                                    class="alert alert-danger"
+                                    style="display: none"
+                                ></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Segmentation Mode -->
-    <div id="mode-segmentation" class="min-vh-100" style="display: none; padding-top: 76px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
-        <div class="container">
-            <div class="row mb-4">
+            <!-- Segmentation Controls (only for segmentation mode) -->
+            <div class="row mt-4" id="controls" style="display: none">
                 <div class="col-12">
-                    <div class="d-flex align-items-center mb-4">
-                        <button class="btn btn-light shadow-sm" onclick="showLanding()">
-                            <i class="fas fa-arrow-left me-2"></i>Back
-                        </button>
-                        <h2 class="flex-grow-1 text-center mb-0 fw-bold">Segmentation Evaluation</h2>
-                        <div style="width: 73px;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-10">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="card border-0 shadow-lg h-100">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="icon-wrapper me-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                            <i class="fas fa-image text-white"></i>
+                    <div class="card border-0 shadow">
+                        <div class="card-body">
+                            <div class="row g-4 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <label
+                                            for="sliceSlider"
+                                            class="form-label fw-semibold"
+                                        >
+                                            <i
+                                                class="fas fa-layer-group me-2 text-primary"
+                                            ></i
+                                            >Slice Navigation
+                                        </label>
+                                        <div
+                                            class="d-flex align-items-center gap-3"
+                                        >
+                                            <input
+                                                type="range"
+                                                id="sliceSlider"
+                                                class="form-range flex-grow-1"
+                                                min="0"
+                                                max="0"
+                                                value="0"
+                                            />
+                                            <span
+                                                class="badge bg-primary rounded-pill px-3"
+                                                id="sliceInfo"
+                                                style="min-width: 60px"
+                                                >1/1</span
+                                            >
                                         </div>
-                                        <div>
-                                            <h5 class="mb-0 fw-bold">Medical Image</h5>
-                                            <small class="text-muted">Base scan data</small>
-                                        </div>
-                                    </div>
-                                    <div class="upload-area p-3 border-2 border-dashed rounded-3" style="background: #f8f9fa; border-color: #dee2e6 !important;">
-                                        <input type="file" id="imageFile" class="form-control mb-2" accept=".nrrd,.nii,.nii.gz">
-                                        <small class="form-text text-muted">NRRD, NIfTI (.nii/.nii.gz) formats</small>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card border-0 shadow-lg h-100">
-                                <div class="card-body p-4">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="icon-wrapper me-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                            <i class="fas fa-tags text-white"></i>
+                                <div class="col-md-6">
+                                    <div class="control-group">
+                                        <label
+                                            for="opacitySlider"
+                                            class="form-label fw-semibold"
+                                        >
+                                            <i
+                                                class="fas fa-adjust me-2 text-info"
+                                            ></i
+                                            >Label Opacity
+                                        </label>
+                                        <div
+                                            class="d-flex align-items-center gap-3"
+                                        >
+                                            <input
+                                                type="range"
+                                                id="opacitySlider"
+                                                class="form-range flex-grow-1"
+                                                min="0"
+                                                max="100"
+                                                value="50"
+                                            />
+                                            <span
+                                                class="badge bg-info rounded-pill px-3"
+                                                id="opacityValue"
+                                                style="min-width: 60px"
+                                                >50%</span
+                                            >
                                         </div>
-                                        <div>
-                                            <h5 class="mb-0 fw-bold">Segmentation Labels</h5>
-                                            <small class="text-muted">Overlay annotations</small>
-                                        </div>
-                                    </div>
-                                    <div class="upload-area p-3 border-2 border-dashed rounded-3" style="background: #f8f9fa; border-color: #dee2e6 !important;">
-                                        <input type="file" id="labelFile" class="form-control mb-2" accept=".nrrd,.nii,.nii.gz">
-                                        <small class="form-text text-muted">Must match image dimensions</small>
                                     </div>
                                 </div>
                             </div>
@@ -187,163 +656,55 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Text Analysis Mode -->
-    <div id="mode-text" class="min-vh-100" style="display: none; padding-top: 76px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="d-flex align-items-center mb-4">
-                        <button class="btn btn-light shadow-sm" onclick="showLanding()">
-                            <i class="fas fa-arrow-left me-2"></i>Back
-                        </button>
-                        <h2 class="flex-grow-1 text-center mb-0 fw-bold">Text Analysis Evaluation</h2>
-                        <div style="width: 73px;"></div>
-                    </div>
-                </div>
-            </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="js/nrrd-parser.js"></script>
+        <script src="js/nifti-parser.js"></script>
+        <script src="js/stl-parser.js"></script>
+        <script src="js/viewer.js"></script>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="card border-0 shadow-lg">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="icon-wrapper me-3" style="width: 48px; height: 48px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-file-alt text-white"></i>
-                                </div>
-                                <div>
-                                    <h5 class="mb-0 fw-bold">Medical Text Analysis</h5>
-                                    <small class="text-muted">Evaluate AI-generated medical content</small>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="textInput" class="form-label fw-semibold">Input Text</label>
-                                <textarea id="textInput" class="form-control" rows="12" placeholder="Paste AI-generated medical text, reports, or clinical notes here for evaluation..." style="font-family: 'Inter', sans-serif; line-height: 1.6;"></textarea>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-gradient-primary btn-lg px-4">
-                                    <i class="fas fa-microscope me-2"></i>Analyze Text
-                                </button>
-                                <button class="btn btn-outline-secondary btn-lg px-4">
-                                    <i class="fas fa-upload me-2"></i>Upload File
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <script>
+            // Navigation between modes
+            function showMode(mode) {
+                // Hide landing page
+                document.getElementById("landing-page").style.display = "none";
 
-    <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
-    <div id="viewer-container" class="container mt-4" style="display: none;">
-        <div class="row">
-            <div class="col-12">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-body p-0">
-                        <div id="viewer" class="viewer-container">
-                            <!-- Segmentation Viewer -->
-                            <div id="canvas-container" style="display: none;">
-                                <canvas id="imageCanvas"></canvas>
-                                <canvas id="labelCanvas"></canvas>
-                            </div>
-                            <!-- 3D STL Viewer -->
-                            <div id="stl-container" style="display: none;">
-                                <canvas id="stlCanvas"></canvas>
-                                <div class="mt-2 text-center">
-                                    <small class="text-muted">
-                                        <strong>Controls:</strong> Mouse: drag to rotate, scroll to zoom • 
-                                        <strong>W</strong>: wireframe/solid • <strong>F</strong>: toggle fog • <strong>R</strong>: reset camera
-                                    </small>
-                                </div>
-                            </div>
-                            <div id="error" class="alert alert-danger" style="display: none;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                // Hide all modes
+                document.getElementById("mode-3d").style.display = "none";
+                document.getElementById("mode-segmentation").style.display =
+                    "none";
+                document.getElementById("mode-text").style.display = "none";
 
-        <!-- Segmentation Controls (only for segmentation mode) -->
-        <div class="row mt-4" id="controls" style="display: none;">
-            <div class="col-12">
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="row g-4 align-items-center">
-                            <div class="col-md-6">
-                                <div class="control-group">
-                                    <label for="sliceSlider" class="form-label fw-semibold">
-                                        <i class="fas fa-layer-group me-2 text-primary"></i>Slice Navigation
-                                    </label>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <input type="range" id="sliceSlider" class="form-range flex-grow-1" min="0" max="0" value="0">
-                                        <span class="badge bg-primary rounded-pill px-3" id="sliceInfo" style="min-width: 60px;">1/1</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="control-group">
-                                    <label for="opacitySlider" class="form-label fw-semibold">
-                                        <i class="fas fa-adjust me-2 text-info"></i>Label Opacity
-                                    </label>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <input type="range" id="opacitySlider" class="form-range flex-grow-1" min="0" max="100" value="50">
-                                        <span class="badge bg-info rounded-pill px-3" id="opacityValue" style="min-width: 60px;">50%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                // Show selected mode
+                document.getElementById("mode-" + mode).style.display = "block";
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="js/nrrd-parser.js"></script>
-    <script src="js/nifti-parser.js"></script>
-    <script src="js/stl-parser.js"></script>
-    <script src="js/viewer.js"></script>
-
-    <script>
-        // Navigation between modes
-        function showMode(mode) {
-            // Hide landing page
-            document.getElementById('landing-page').style.display = 'none';
-            
-            // Hide all modes
-            document.getElementById('mode-3d').style.display = 'none';
-            document.getElementById('mode-segmentation').style.display = 'none';
-            document.getElementById('mode-text').style.display = 'none';
-            
-            // Show selected mode
-            document.getElementById('mode-' + mode).style.display = 'block';
-            
-            // Hide viewer until files are loaded
-            document.getElementById('viewer-container').style.display = 'none';
-        }
-        
-        function showLanding() {
-            // Hide all modes
-            document.getElementById('mode-3d').style.display = 'none';
-            document.getElementById('mode-segmentation').style.display = 'none';
-            document.getElementById('mode-text').style.display = 'none';
-            document.getElementById('viewer-container').style.display = 'none';
-            
-            // Show landing page
-            document.getElementById('landing-page').style.display = 'block';
-        }
-        
-        // Initialize viewer when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize the NRRDViewer for all file handling
-            if (window.NRRDViewer) {
-                window.nrrdViewer = new window.NRRDViewer();
+                // Hide viewer until files are loaded
+                document.getElementById("viewer-container").style.display =
+                    "none";
             }
-        });
-    </script>
-</body>
+
+            function showLanding() {
+                // Hide all modes
+                document.getElementById("mode-3d").style.display = "none";
+                document.getElementById("mode-segmentation").style.display =
+                    "none";
+                document.getElementById("mode-text").style.display = "none";
+                document.getElementById("viewer-container").style.display =
+                    "none";
+
+                // Show landing page
+                document.getElementById("landing-page").style.display = "block";
+            }
+
+            // Initialize viewer when DOM is loaded
+            document.addEventListener("DOMContentLoaded", () => {
+                // Initialize the NRRDViewer for all file handling
+                if (window.NRRDViewer) {
+                    window.nrrdViewer = new window.NRRDViewer();
+                }
+            });
+        </script>
+    </body>
 </html>
