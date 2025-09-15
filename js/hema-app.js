@@ -1081,27 +1081,40 @@
             // Reset slice ratings
             this.sliceRatings = {};
 
-            // Clear slice annotations from memory - MULTIPLE ATTEMPTS
+            // === Clear ALL slice annotations using proper method ===
             if (this.segmentationViewer) {
-                // Clear all annotation data structures
+                console.log('=== CLEARING ALL SLICE ANNOTATIONS ===');
+
+                // Get all slice numbers that have annotations
+                const annotatedSlices = this.segmentationViewer.sliceAnnotations ?
+                    Object.keys(this.segmentationViewer.sliceAnnotations) : [];
+                console.log('Found annotations on slices:', annotatedSlices);
+
+                // Clear annotations from ALL slices (not just current slice)
                 if (this.segmentationViewer.sliceAnnotations) {
-                    console.log('Clearing sliceAnnotations - before:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
-                    this.segmentationViewer.sliceAnnotations = {};
-                    console.log('Clearing sliceAnnotations - after:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
+                    Object.keys(this.segmentationViewer.sliceAnnotations).forEach(sliceNum => {
+                        console.log('Clearing annotations for slice:', sliceNum);
+                        delete this.segmentationViewer.sliceAnnotations[sliceNum];
+                    });
+                    console.log('All slice annotations cleared from memory');
                 }
 
-                // Clear current drawing data immediately
+                // Clear the annotation canvas completely
+                if (this.segmentationViewer.annotationCtx && this.segmentationViewer.annotationCanvas) {
+                    this.segmentationViewer.annotationCtx.clearRect(0, 0,
+                        this.segmentationViewer.annotationCanvas.width,
+                        this.segmentationViewer.annotationCanvas.height);
+                    console.log('Annotation canvas cleared');
+                }
+
+                // Reset all annotation-related variables
                 this.segmentationViewer.currentDrawingCoords = null;
                 this.segmentationViewer.isAnnotating = false;
 
-                // Force save cleared annotations multiple times to ensure persistence
+                // Force save the cleared annotations to localStorage
                 if (typeof this.segmentationViewer.saveSliceAnnotations === 'function') {
                     this.segmentationViewer.saveSliceAnnotations();
-                    // Save again after a small delay to handle any async issues
-                    setTimeout(() => {
-                        this.segmentationViewer.saveSliceAnnotations();
-                        console.log('Second annotation save completed');
-                    }, 100);
+                    console.log('Empty annotations saved to localStorage');
                 }
 
                 // Clear annotation mode
@@ -1214,15 +1227,133 @@
             }
 
             // === Final verification ===
-            console.log('Project reset complete - all data cleared');
-            console.log('Remaining localStorage keys:', Object.keys(localStorage).filter(k => k.startsWith('hema-')));
-            console.log('Current sliceRatings:', this.sliceRatings);
+            console.log('=== PROJECT RESET VERIFICATION ===');
+            const remainingKeys = Object.keys(localStorage).filter(k => k.startsWith('hema-'));
+            console.log('Remaining localStorage keys:', remainingKeys);
+            console.log('Current sliceRatings count:', Object.keys(this.sliceRatings).length);
+
             if (this.segmentationViewer && this.segmentationViewer.sliceAnnotations) {
-                console.log('Current sliceAnnotations:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
+                const annotationCount = Object.keys(this.segmentationViewer.sliceAnnotations).length;
+                console.log('Current sliceAnnotations count:', annotationCount);
             }
 
-            // Show success notification
-            this.showNotification('All data cleared! Starting fresh...', 'success');
+            // === Provide substantial visual feedback ===
+            // Update the page title to show reset status
+            document.title = 'HEMA - Fresh Start Complete';
+
+            // Show a comprehensive modal-style confirmation
+            this.showComprehensiveResetConfirmation();
+
+            // Reset page title after delay
+            setTimeout(() => {
+                document.title = 'HEMA - Human Evaluation of Medical AI';
+            }, 3000);
+        },
+
+        showComprehensiveResetConfirmation: function() {
+            // Create a comprehensive modal-style confirmation overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                animation: fadeIn 0.3s ease-in;
+            `;
+
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: white;
+                padding: 40px;
+                border-radius: 15px;
+                text-align: center;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                animation: slideIn 0.4s ease-out;
+            `;
+
+            modal.innerHTML = `
+                <div style="color: #28a745; font-size: 60px; margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 style="color: #333; margin-bottom: 20px; font-weight: bold;">
+                    🎉 Fresh Start Complete!
+                </h2>
+                <div style="color: #666; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+                    <p><strong>✅ All annotations cleared from all slices</strong></p>
+                    <p><strong>✅ All comments and ratings removed</strong></p>
+                    <p><strong>✅ All cached data deleted</strong></p>
+                    <p><strong>✅ Canvas completely reset</strong></p>
+                    <br>
+                    <p style="color: #28a745; font-weight: bold;">
+                        Ready for a new evaluation session!
+                    </p>
+                </div>
+                <button id="resetOkButton" style="
+                    background: linear-gradient(135deg, #28a745, #20c997);
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                " onmouseover="this.style.transform='scale(1.05)'"
+                   onmouseout="this.style.transform='scale(1)'">
+                    Continue
+                </button>
+            `;
+
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes slideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            // Handle click to close
+            const closeModal = () => {
+                overlay.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(overlay);
+                    document.head.removeChild(style);
+                }, 300);
+            };
+
+            // Close on button click or overlay click
+            modal.querySelector('#resetOkButton').addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
+            });
+
+            // Auto-close after 5 seconds
+            setTimeout(closeModal, 5000);
+
+            // Add fadeOut animation
+            style.textContent += `
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
         },
 
         showNotification: function(message, type = 'info') {
