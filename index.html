@@ -204,7 +204,7 @@
             id="mode-3d"
             style="
                 display: none;
-                padding-top: 90px;
+                padding-top: 60px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             "
@@ -297,15 +297,15 @@
             id="mode-segmentation"
             style="
                 display: none;
-                padding-top: 90px;
+                padding-top: 60px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             "
         >
             <div class="container">
-                <div class="row mb-3">
+                <div class="row mb-2">
                     <div class="col-12">
-                        <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-center mb-2">
                             <button
                                 class="btn btn-light shadow-sm"
                                 onclick="showLanding()"
@@ -446,7 +446,7 @@
             id="mode-text"
             style="
                 display: none;
-                padding-top: 90px;
+                padding-top: 60px;
                 padding-bottom: 40px;
                 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             "
@@ -541,26 +541,27 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Modern Separator -->
-            <div id="viewer-separator" class="container mt-4 mb-4" style="display: none;">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
-                            <div class="mx-3">
-                                <span class="badge bg-white text-muted border shadow-sm px-3 py-2">
-                                    <i class="fas fa-chart-line me-2"></i>Visualization
-                                </span>
-                            </div>
-                            <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+        <!-- Modern Separator -->
+        <div id="viewer-separator" class="container mt-3 mb-3" style="display: none;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+                        <div class="mx-3">
+                            <span class="badge bg-white text-muted border shadow-sm px-4 py-3" style="font-size: 1rem;">
+                                <i class="fas fa-chart-line me-2"></i>Visualization
+                            </span>
                         </div>
+                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
-            <div id="viewer-container" class="container" style="display: none">
+        <!-- Shared Viewer Container (appears in all modes when files are loaded) -->
+        <div id="viewer-container" class="container mb-3" style="display: none">
             <div class="row">
                 <div class="col-12">
                     <div class="card border-0 shadow-lg">
@@ -682,6 +683,21 @@
         <script src="js/viewer.js"></script>
 
         <script>
+            // Utility function for precise vertical centering
+            function scrollToCenter(element) {
+                if (!element) return;
+                
+                const rect = element.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                const elementCenter = rect.top + window.scrollY + (rect.height / 2);
+                const scrollToPosition = elementCenter - (viewportHeight / 2);
+                
+                window.scrollTo({
+                    top: Math.max(0, scrollToPosition), // Ensure we don't scroll above page top
+                    behavior: 'smooth'
+                });
+            }
+            
             // Navigation between modes
             function showMode(mode) {
                 // Hide landing page
@@ -694,11 +710,30 @@
                 document.getElementById("mode-text").style.display = "none";
 
                 // Show selected mode
-                document.getElementById("mode-" + mode).style.display = "block";
+                const modeElement = document.getElementById("mode-" + mode);
+                modeElement.style.display = "block";
 
                 // Hide viewer until files are loaded
                 document.getElementById("viewer-container").style.display =
                     "none";
+
+                // Smooth scroll to the file upload section
+                setTimeout(() => {
+                    // Find the content area in the mode section to scroll to
+                    const contentRow = modeElement.querySelector('.row.g-4.justify-content-center');
+                    if (contentRow) {
+                        scrollToCenter(contentRow);
+                    } else {
+                        // Fallback to the first card
+                        const firstCard = modeElement.querySelector('.card');
+                        if (firstCard) {
+                            scrollToCenter(firstCard);
+                        } else {
+                            // Final fallback
+                            scrollToCenter(modeElement);
+                        }
+                    }
+                }, 100);
             }
 
             function showLanding() {
@@ -716,13 +751,7 @@
                 document.getElementById("landing-page").style.display = "block";
             }
 
-            // Initialize viewer when DOM is loaded
-            document.addEventListener("DOMContentLoaded", () => {
-                // Initialize the NRRDViewer for all file handling
-                if (window.NRRDViewer) {
-                    window.nrrdViewer = new window.NRRDViewer();
-                }
-            });
+            // Viewer is automatically initialized in viewer.js
         </script>
     </body>
 </html>

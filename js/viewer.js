@@ -27,8 +27,19 @@ class NRRDViewer {
     this.imageCanvas = document.getElementById("imageCanvas");
     this.labelCanvas = document.getElementById("labelCanvas");
     this.stlCanvas = document.getElementById("stlCanvas");
-    this.imageCtx = this.imageCanvas.getContext("2d");
-    this.labelCtx = this.labelCanvas.getContext("2d");
+    
+    console.log("Canvas elements check:", {
+      imageCanvas: !!this.imageCanvas,
+      labelCanvas: !!this.labelCanvas,
+      stlCanvas: !!this.stlCanvas
+    });
+    
+    if (this.imageCanvas && this.labelCanvas) {
+      this.imageCtx = this.imageCanvas.getContext("2d");
+      this.labelCtx = this.labelCanvas.getContext("2d");
+    } else {
+      console.error("Missing canvas elements!");
+    }
 
     this.initEventListeners();
   }
@@ -63,6 +74,8 @@ class NRRDViewer {
     const file = event.target.files[0];
     if (!file) return;
 
+    console.log(`Loading ${type} file:`, file.name);
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -79,6 +92,8 @@ class NRRDViewer {
           );
         }
 
+        console.log(`${type} file parsed successfully:`, data.sizes);
+
         if (type === "image") {
           this.imageData = data;
         } else {
@@ -89,15 +104,20 @@ class NRRDViewer {
           this.detectCategories();
         }
 
+        console.log(`Current state - imageData:`, !!this.imageData, `labelData:`, !!this.labelData);
+
         if (this.imageData && this.labelData) {
+          console.log("Both files loaded, setting up viewer...");
           this.setupViewer();
         }
       } catch (error) {
+        console.error(`Error loading ${type}:`, error);
         this.showError(`Error loading ${type}: ${error.message}`);
       }
     };
 
     reader.onerror = () => {
+      console.error(`Failed to read ${type} file`);
       this.showError(`Failed to read ${type} file`);
     };
 
@@ -145,6 +165,7 @@ class NRRDViewer {
   }
 
   setupViewer() {
+    console.log("setupViewer called");
     const [width, height, depth] = this.imageData.sizes;
 
     // Check dimensions match
@@ -153,9 +174,49 @@ class NRRDViewer {
       return;
     }
 
+    console.log("Dimensions match, showing viewer elements...");
+
     // Show viewer container and separator
-    document.getElementById("viewer-container").style.display = "block";
-    document.getElementById("viewer-separator").style.display = "block";
+    const viewerContainer = document.getElementById("viewer-container");
+    const viewerSeparator = document.getElementById("viewer-separator");
+    
+    console.log("viewer-container element:", viewerContainer);
+    console.log("viewer-separator element:", viewerSeparator);
+    
+    if (!viewerContainer) {
+      console.error("viewer-container element not found!");
+      return;
+    }
+    
+    if (!viewerSeparator) {
+      console.error("viewer-separator element not found!");
+      return;
+    }
+
+    viewerContainer.style.display = "block";
+    viewerSeparator.style.display = "block";
+
+    console.log("Viewer elements shown, initiating scroll...");
+
+    // Smooth scroll to viewer after a brief delay
+    setTimeout(() => {
+      const viewerContainer = document.getElementById("viewer-container");
+      if (viewerContainer) {
+        // Wait a bit more for the container to be fully rendered
+        setTimeout(() => {
+          const rect = viewerContainer.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const elementCenter = rect.top + window.scrollY + (rect.height / 2);
+          const scrollToPosition = elementCenter - (viewportHeight / 2);
+          
+          window.scrollTo({
+            top: Math.max(0, scrollToPosition),
+            behavior: 'smooth'
+          });
+          console.log("Scroll initiated to center viewer section");
+        }, 100);
+      }
+    }, 150);
 
     // Set canvas dimensions
     this.imageCanvas.width = width;
@@ -165,20 +226,44 @@ class NRRDViewer {
 
     // Set container dimensions
     const container = document.getElementById("canvas-container");
-    container.style.width = width + "px";
-    container.style.height = height + "px";
+    console.log("canvas-container element:", container);
+    
+    if (container) {
+      container.style.width = width + "px";
+      container.style.height = height + "px";
+    } else {
+      console.error("canvas-container element not found!");
+    }
 
     // Setup slider
     const sliceSlider = document.getElementById("sliceSlider");
-    sliceSlider.max = depth - 1;
-    sliceSlider.value = Math.floor(depth / 2);
-    this.currentSlice = Math.floor(depth / 2);
+    console.log("sliceSlider element:", sliceSlider);
+    
+    if (sliceSlider) {
+      sliceSlider.max = depth - 1;
+      sliceSlider.value = Math.floor(depth / 2);
+      this.currentSlice = Math.floor(depth / 2);
+    } else {
+      console.error("sliceSlider element not found!");
+    }
 
     // Show elements and update styling
-    document.getElementById("canvas-container").style.display = "block";
-    document.getElementById("controls").style.display = "block";
-    document.getElementById("error").style.display = "none";
-    document.getElementById("viewer").classList.add("has-files");
+    const canvasContainer = document.getElementById("canvas-container");
+    const controls = document.getElementById("controls");
+    const error = document.getElementById("error");
+    const viewer = document.getElementById("viewer");
+    
+    console.log("Elements check:", {
+      canvasContainer: !!canvasContainer,
+      controls: !!controls,
+      error: !!error,
+      viewer: !!viewer
+    });
+    
+    if (canvasContainer) canvasContainer.style.display = "block";
+    if (controls) controls.style.display = "block";
+    if (error) error.style.display = "none";
+    if (viewer) viewer.classList.add("has-files");
 
     // Update category count if element exists
     const categoryCountElement = document.getElementById("categoryCount");
@@ -266,6 +351,25 @@ class NRRDViewer {
     // Show viewer container and separator
     document.getElementById("viewer-container").style.display = "block";
     document.getElementById("viewer-separator").style.display = "block";
+
+    // Smooth scroll to viewer after a brief delay
+    setTimeout(() => {
+      const viewerContainer = document.getElementById("viewer-container");
+      if (viewerContainer) {
+        // Wait a bit more for the container to be fully rendered
+        setTimeout(() => {
+          const rect = viewerContainer.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const elementCenter = rect.top + window.scrollY + (rect.height / 2);
+          const scrollToPosition = elementCenter - (viewportHeight / 2);
+          
+          window.scrollTo({
+            top: Math.max(0, scrollToPosition),
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }, 150);
 
     // Hide other containers and show STL container
     document.getElementById("canvas-container").style.display = "none";
@@ -677,7 +781,10 @@ class NRRDViewer {
   }
 }
 
+// Export to window for use in HTML
+window.NRRDViewer = NRRDViewer;
+
 // Initialize viewer when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  new NRRDViewer();
+  window.nrrdViewer = new NRRDViewer();
 });
