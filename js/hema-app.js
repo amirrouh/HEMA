@@ -635,7 +635,13 @@
         },
 
         showError: function(message, error) {
-            console.error('Error:', message, error || 'No error details available');
+            // Safely handle error parameter
+            const errorDetails = error ?
+                (typeof error === 'string' ? error :
+                 error.message || error.toString() || 'No error details available')
+                : 'No error details available';
+
+            console.error('Error:', message, errorDetails);
 
             if (this.errorElement) {
                 this.errorElement.textContent = message;
@@ -648,6 +654,7 @@
                 }, 10000);
             } else {
                 // Fallback to alert if no error element
+                console.warn('Error element not found, using alert fallback');
                 alert('Error: ' + message);
             }
         },
@@ -1331,10 +1338,22 @@
 
             // Handle click to close
             const closeModal = () => {
+                // Prevent multiple calls
+                if (overlay.dataset.closing) return;
+                overlay.dataset.closing = 'true';
+
                 overlay.style.animation = 'fadeOut 0.3s ease-out';
                 setTimeout(() => {
-                    document.body.removeChild(overlay);
-                    document.head.removeChild(style);
+                    try {
+                        if (overlay.parentNode) {
+                            document.body.removeChild(overlay);
+                        }
+                        if (style.parentNode) {
+                            document.head.removeChild(style);
+                        }
+                    } catch (e) {
+                        console.log('Modal cleanup completed (elements already removed)');
+                    }
                 }, 300);
             };
 
@@ -3208,17 +3227,19 @@
 
             // Handle errors
             window.addEventListener('error', function(event) {
-                console.error('Global error:', event.error);
-                if (self.errorHandler) {
-                    self.errorHandler.showError('An unexpected error occurred', event.error);
+                const error = event.error || event.message || 'Unknown error';
+                console.error('Global error:', error);
+                if (self.errorHandler && error && error !== null) {
+                    self.errorHandler.showError('An unexpected error occurred', error);
                 }
             });
 
             // Handle unhandled promise rejections
             window.addEventListener('unhandledrejection', function(event) {
-                console.error('Unhandled promise rejection:', event.reason);
-                if (self.errorHandler) {
-                    self.errorHandler.showError('An unexpected error occurred');
+                const reason = event.reason || 'Unknown promise rejection';
+                console.error('Unhandled promise rejection:', reason);
+                if (self.errorHandler && reason) {
+                    self.errorHandler.showError('An unexpected error occurred', reason);
                 }
                 event.preventDefault();
             });
