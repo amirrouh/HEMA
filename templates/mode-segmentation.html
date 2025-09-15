@@ -1,0 +1,148 @@
+<!-- Segmentation Mode -->
+<div
+    id="mode-segmentation"
+    style="
+        display: none;
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    "
+>
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-2">
+                    <button
+                        class="btn btn-light shadow-sm"
+                        onclick="showLanding()"
+                    >
+                        <i class="fas fa-arrow-left me-2"></i>Back
+                    </button>
+                    <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                        Segmentation Evaluation
+                    </h2>
+                    <div style="width: 73px"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-10">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-lg h-100">
+                            <div class="card-body p-4">
+                                <div
+                                    class="d-flex align-items-center mb-3"
+                                >
+                                    <div
+                                        class="icon-wrapper me-3"
+                                        style="
+                                            width: 48px;
+                                            height: 48px;
+                                            background: linear-gradient(
+                                                135deg,
+                                                #11998e 0%,
+                                                #38ef7d 100%
+                                            );
+                                            border-radius: 12px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        "
+                                    >
+                                        <i
+                                            class="fas fa-image text-white"
+                                        ></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">
+                                            Medical Image
+                                        </h5>
+                                        <small class="text-muted"
+                                            >Base scan data</small
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    class="upload-area p-3 border-2 border-dashed rounded-3"
+                                    style="
+                                        background: #f8f9fa;
+                                        border-color: #dee2e6 !important;
+                                    "
+                                >
+                                    <input
+                                        type="file"
+                                        id="imageFile"
+                                        class="form-control mb-2"
+                                        accept=".nrrd,.nii,.nii.gz"
+                                    />
+                                    <small class="form-text text-muted"
+                                        >NRRD, NIfTI (.nii/.nii.gz)
+                                        formats</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-lg h-100">
+                            <div class="card-body p-4">
+                                <div
+                                    class="d-flex align-items-center mb-3"
+                                >
+                                    <div
+                                        class="icon-wrapper me-3"
+                                        style="
+                                            width: 48px;
+                                            height: 48px;
+                                            background: linear-gradient(
+                                                135deg,
+                                                #f093fb 0%,
+                                                #f5576c 100%
+                                            );
+                                            border-radius: 12px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                        "
+                                    >
+                                        <i
+                                            class="fas fa-tags text-white"
+                                        ></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">
+                                            Segmentation Labels
+                                        </h5>
+                                        <small class="text-muted"
+                                            >Overlay annotations</small
+                                        >
+                                    </div>
+                                </div>
+                                <div
+                                    class="upload-area p-3 border-2 border-dashed rounded-3"
+                                    style="
+                                        background: #f8f9fa;
+                                        border-color: #dee2e6 !important;
+                                    "
+                                >
+                                    <input
+                                        type="file"
+                                        id="labelFile"
+                                        class="form-control mb-2"
+                                        accept=".nrrd,.nii,.nii.gz"
+                                    />
+                                    <small class="form-text text-muted"
+                                        >Must match image
+                                        dimensions</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

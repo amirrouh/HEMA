@@ -1,0 +1,101 @@
+/* HEMA - Main CSS - Core styles, typography, layout */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Custom Properties (Variables) */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --info-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --danger-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+    --shadow-xl: 0 12px 48px rgba(0,0,0,0.2);
+}
+
+/* Global Styles */
+* {
+    font-family: 'Inter', sans-serif;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Typography */
+.text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Navbar */
+.navbar {
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Focus Styles */
+.btn:focus,
+.form-control:focus,
+.form-range:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a71e0 0%, #6a4195 100%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}

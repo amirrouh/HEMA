@@ -1,0 +1,54 @@
+<!-- Navigation Bar -->
+<nav
+    class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm"
+    style="
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    "
+>
+    <div class="container-fluid px-4">
+        <a
+            class="navbar-brand fw-bold d-flex align-items-center"
+            href="#"
+            onclick="showLanding()"
+            style="color: #6366f1; font-size: 1.5rem"
+        >
+            <div
+                class="d-flex align-items-center justify-content-center me-3"
+                style="
+                    width: 40px;
+                    height: 40px;
+                    background: linear-gradient(
+                        135deg,
+                        #6366f1 0%,
+                        #8b5cf6 100%
+                    );
+                    border-radius: 12px;
+                "
+            >
+                <i
+                    class="fas fa-heartbeat text-white"
+                    style="font-size: 1.2rem"
+                ></i>
+            </div>
+            <span style="letter-spacing: -0.5px">HEMA</span>
+        </a>
+        <span
+            class="navbar-text ms-3"
+            style="color: #64748b; font-size: 0.95rem; font-weight: 500"
+        >
+            Human Evaluation of Medical AI Platform
+        </span>
+        
+        <!-- Navigation Buttons -->
+        <div class="ms-auto d-flex gap-2">
+            <button class="btn btn-outline-primary me-2" id="databaseBtn" title="View report">
+                <i class="fas fa-file-alt me-2"></i>Report
+            </button>
+            <button class="btn btn-outline-info" id="helpBtn" title="Help and documentation">
+                <i class="fas fa-question-circle me-2"></i>Help
+            </button>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEMA - Help & Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="../index.html" style="color: #6366f1; font-size: 1.5rem">
+                <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 12px;">
+                    <i class="fas fa-heartbeat text-white" style="font-size: 1.2rem"></i>
+                </div>
+                <span style="letter-spacing: -0.5px">HEMA</span>
+            </a>
+            <span class="navbar-text ms-3" style="color: #64748b; font-size: 0.95rem; font-weight: 500">
+                Help & Documentation
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <div class="card border-0 shadow-sm position-sticky" style="top: 20px;">
+                    <div class="card-body">
+                        <h6 class="fw-bold mb-3">Table of Contents</h6>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link active" href="#getting-started">
+                                <i class="fas fa-play-circle me-2"></i>Getting Started
+                            </a>
+                            <a class="nav-link" href="#segmentation-mode">
+                                <i class="fas fa-images me-2"></i>Segmentation Mode
+                            </a>
+                            <a class="nav-link" href="#3d-mode">
+                                <i class="fas fa-cube me-2"></i>3D Model Mode
+                            </a>
+                            <a class="nav-link" href="#text-analysis">
+                                <i class="fas fa-file-text me-2"></i>Text Analysis
+                            </a>
+                            <a class="nav-link" href="#annotations">
+                                <i class="fas fa-pen me-2"></i>Annotations
+                            </a>
+                            <a class="nav-link" href="#comments">
+                                <i class="fas fa-comment me-2"></i>Comments
+                            </a>
+                            <a class="nav-link" href="#database">
+                                <i class="fas fa-database me-2"></i>Database
+                            </a>
+                            <a class="nav-link" href="#export">
+                                <i class="fas fa-download me-2"></i>Export
+                            </a>
+                            <a class="nav-link" href="#troubleshooting">
+                                <i class="fas fa-tools me-2"></i>Troubleshooting
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 col-md-8">
+                <!-- Header -->
+                <div class="mb-5">
+                    <h1 class="fw-bold mb-3">
+                        <i class="fas fa-question-circle me-3 text-primary"></i>
+                        HEMA Documentation
+                    </h1>
+                    <p class="lead text-muted">Complete guide for Healthcare Evaluation and Medical Analysis platform</p>
+                </div>
+
+                <!-- Getting Started -->
+                <section id="getting-started" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-play-circle text-success me-3"></i>
+                                Getting Started
+                            </h2>
+                            
+                            <h5 class="fw-semibold mb-3">What is HEMA?</h5>
+                            <p>HEMA (Healthcare Evaluation and Medical Analysis) is a comprehensive web-based platform designed for medical professionals to analyze and evaluate medical imaging data, 3D models, and related documentation.</p>
+                            
+                            <h5 class="fw-semibold mb-3 mt-4">System Requirements</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                                <li><i class="fas fa-check text-success me-2"></i>JavaScript enabled</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Minimum 4GB RAM recommended</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Good internet connection for loading resources</li>
+                            </ul>
+
+                            <h5 class="fw-semibold mb-3 mt-4">Quick Start</h5>
+                            <ol class="ps-0">
+                                <li class="mb-2">Open HEMA in your web browser</li>
+                                <li class="mb-2">Choose your analysis mode (Segmentation, 3D, or Text)</li>
+                                <li class="mb-2">Upload your medical files using the file input</li>
+                                <li class="mb-2">Wait for the viewer to initialize</li>
+                                <li class="mb-2">Start analyzing and annotating your data</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Segmentation Mode -->
+                <section id="segmentation-mode" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-images text-primary me-3"></i>
+                                Segmentation Mode
+                            </h2>
+                            
+                            <p>Segmentation mode allows you to analyze medical images slice by slice, perfect for reviewing MRI, CT scans, and other volumetric data.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Supported File Formats</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-file-medical text-info me-2"></i>
+                                        <strong>NRRD Files</strong> (.nrrd)
+                                    </div>
+                                    <p class="small text-muted mb-3">Near Raw Raster Data format, commonly used for medical imaging</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fas fa-file-medical text-warning me-2"></i>
+                                        <strong>NIfTI Files</strong> (.nii, .nii.gz)
+                                    </div>
+                                    <p class="small text-muted mb-3">Neuroimaging Informatics Technology Initiative format</p>
+                                </div>
+                            </div>
+
+                            <h5 class="fw-semibold mb-3">Navigation Controls</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Control</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><kbd>←</kbd> / <kbd>→</kbd></td>
+                                            <td>Navigate between slices</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>Mouse Wheel</kbd></td>
+                                            <td>Scroll through slices</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Slice selector</td>
+                                            <td>Jump to specific slice</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3D Mode -->
+                <section id="3d-mode" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-cube text-info me-3"></i>
+                                3D Model Mode
+                            </h2>
+                            
+                            <p>3D mode enables visualization and analysis of three-dimensional medical models and anatomical structures.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Supported Formats</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-cube text-success me-2"></i>
+                                <strong>STL Files</strong> (.stl) - Stereolithography format for 3D models
+                            </div>
+
+                            <h5 class="fw-semibold mb-3">3D Controls</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Control</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><kbd>Left Click + Drag</kbd></td>
+                                            <td>Rotate model</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>Mouse Wheel</kbd></td>
+                                            <td>Zoom in/out</td>
+                                        </tr>
+                                        <tr>
+                                            <td><kbd>Right Click + Drag</kbd></td>
+                                            <td>Pan model</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Text Analysis -->
+                <section id="text-analysis" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-file-text text-secondary me-3"></i>
+                                Text Analysis Mode
+                            </h2>
+                            
+                            <p>Text analysis mode provides tools for reviewing and analyzing medical reports, documentation, and text-based data.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Features</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Text file upload and display</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Search functionality</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Annotation support</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Export capabilities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Annotations -->
+                <section id="annotations" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-pen text-warning me-3"></i>
+                                Drawing Annotations
+                            </h2>
+                            
+                            <p>HEMA includes a powerful annotation system that allows you to draw directly on medical images and save your annotations locally in your browser.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Drawing Tools</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-pen text-primary me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Pen Tool</strong>
+                                            <p class="mb-0 text-muted small">Draw freehand annotations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-eraser text-danger me-3" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Eraser Tool</strong>
+                                            <p class="mb-0 text-muted small">Remove unwanted annotations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="fw-semibold mb-3">How to Use Annotations</h5>
+                            <ol>
+                                <li class="mb-2">Load your medical image in Segmentation mode</li>
+                                <li class="mb-2">Click the <kbd>Pen</kbd> tool to activate drawing mode</li>
+                                <li class="mb-2">Click and drag on the image to draw</li>
+                                <li class="mb-2">Use the <kbd>Eraser</kbd> tool to remove unwanted marks</li>
+                                <li class="mb-2">Annotations are automatically saved to your browser</li>
+                            </ol>
+
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Note:</strong> Annotations are stored locally in your browser and will persist between sessions. They are associated with specific files and slices.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Comments -->
+                <section id="comments" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-comment text-success me-3"></i>
+                                Comments System
+                            </h2>
+                            
+                            <p>Add detailed textual observations and notes to specific slices of your medical images.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Adding Comments</h5>
+                            <ol>
+                                <li class="mb-2">Navigate to the slice you want to comment on</li>
+                                <li class="mb-2">Locate the comments panel on the right side</li>
+                                <li class="mb-2">Type your observation or note in the text area</li>
+                                <li class="mb-2">Click <kbd>Add Comment</kbd> to save</li>
+                            </ol>
+
+                            <h5 class="fw-semibold mb-3">Managing Comments</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Comments are automatically timestamped</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multiple comments per slice are supported</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Comments persist between browser sessions</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Individual comments can be deleted</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Database -->
+                <section id="database" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-database text-primary me-3"></i>
+                                Annotation Database
+                            </h2>
+                            
+                            <p>The database view provides a comprehensive overview of all your saved annotations and comments across all analyzed files.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Accessing the Database</h5>
+                            <p>Click the <kbd>Database</kbd> button in the top navigation bar to open the annotation database in a new tab.</p>
+
+                            <h5 class="fw-semibold mb-3">Database Features</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>View all files with annotations/comments</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>See statistics for each file (slices, annotations, comments)</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Detailed view of individual file data</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Organized by slice for easy navigation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Delete functionality for data management</li>
+                            </ul>
+
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Storage Location:</strong> All data is stored locally in your browser using IndexedDB. Data will not be accessible from other browsers or devices.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Export -->
+                <section id="export" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-download text-info me-3"></i>
+                                Export Functionality
+                            </h2>
+                            
+                            <p>Export your annotation and comment data for backup, sharing, or further analysis.</p>
+                            
+                            <h5 class="fw-semibold mb-3">Export Options</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card border-left-primary h-100">
+                                        <div class="card-body">
+                                            <h6 class="fw-semibold">
+                                                <i class="fas fa-file-code text-primary me-2"></i>
+                                                JSON Export
+                                            </h6>
+                                            <p class="small mb-0">Complete data export in JSON format including all annotations, comments, timestamps, and metadata.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card border-left-danger h-100">
+                                        <div class="card-body">
+                                            <h6 class="fw-semibold">
+                                                <i class="fas fa-file-pdf text-danger me-2"></i>
+                                                PDF Report <small class="text-muted">(Coming Soon)</small>
+                                            </h6>
+                                            <p class="small mb-0">Formatted report with summaries and visualizations of your analysis data.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="fw-semibold mb-3 mt-4">How to Export</h5>
+                            <ol>
+                                <li class="mb-2">Click the <kbd>Export</kbd> button in the main navigation</li>
+                                <li class="mb-2">Or use the export function in the Database view</li>
+                                <li class="mb-2">Choose your export format</li>
+                                <li class="mb-2">The file will be automatically downloaded</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting -->
+                <section id="troubleshooting" class="mb-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h2 class="fw-bold mb-4">
+                                <i class="fas fa-tools text-danger me-3"></i>
+                                Troubleshooting
+                            </h2>
+                            
+                            <h5 class="fw-semibold mb-3">Common Issues</h5>
+                            
+                            <div class="accordion" id="troubleshootingAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue1">
+                                            Viewer not appearing after file upload
+                                        </button>
+                                    </h2>
+                                    <div id="issue1" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                        <div class="accordion-body">
+                                            <strong>Solutions:</strong>
+                                            <ul>
+                                                <li>Ensure you've selected the correct analysis mode before uploading</li>
+                                                <li>Check that your file format is supported</li>
+                                                <li>Try refreshing the page and re-uploading</li>
+                                                <li>Check the browser console for error messages</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue2">
+                                            Annotations not saving
+                                        </button>
+                                    </h2>
+                                    <div id="issue2" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                        <div class="accordion-body">
+                                            <strong>Solutions:</strong>
+                                            <ul>
+                                                <li>Ensure cookies and local storage are enabled</li>
+                                                <li>Check if you're in private/incognito browsing mode</li>
+                                                <li>Verify you have sufficient disk space</li>
+                                                <li>Try clearing browser cache and reload</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#issue3">
+                                            Performance issues with large files
+                                        </button>
+                                    </h2>
+                                    <div id="issue3" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                        <div class="accordion-body">
+                                            <strong>Solutions:</strong>
+                                            <ul>
+                                                <li>Close other browser tabs to free up memory</li>
+                                                <li>Use a computer with more RAM if possible</li>
+                                                <li>Consider processing files in smaller batches</li>
+                                                <li>Update to the latest browser version</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="fw-semibold mb-3 mt-4">Getting Help</h5>
+                            <p>If you continue experiencing issues:</p>
+                            <ul>
+                                <li>Check your browser's developer console for error messages</li>
+                                <li>Try using a different browser</li>
+                                <li>Ensure your browser supports modern web standards</li>
+                                <li>Contact your IT support team for assistance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Back to Top -->
+                <div class="text-center mb-4">
+                    <a href="#" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-up me-2"></i>Back to Top
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

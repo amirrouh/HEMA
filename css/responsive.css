@@ -1,0 +1,199 @@
+/* HEMA - Responsive CSS - Mobile and tablet styles */
+
+/* Large devices and down (1200px and down) */
+@media (max-width: 1199.98px) {
+    .viewer-container {
+        min-height: 450px;
+    }
+}
+
+/* Medium devices and down (992px and down) */
+@media (max-width: 991.98px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .viewer-container {
+        min-height: 400px;
+    }
+}
+
+/* Small devices and down (768px and down) */
+@media (max-width: 767.98px) {
+    .viewer-container {
+        min-height: 350px;
+        padding: 15px;
+    }
+
+    #canvas-container {
+        max-width: 100%;
+        overflow: auto;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #stl-container {
+        height: 350px;
+    }
+
+    .display-3 {
+        font-size: 2rem;
+    }
+
+    .icon-wrapper {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .hover-lift:hover {
+        transform: none;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .control-group {
+        padding: 10px;
+    }
+}
+
+/* Extra small devices (576px and down) */
+@media (max-width: 575.98px) {
+    .btn-lg {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .control-group {
+        padding: 8px;
+    }
+
+    .display-3 {
+        font-size: 1.75rem;
+    }
+
+    .viewer-container {
+        min-height: 300px;
+        padding: 10px;
+    }
+
+    #stl-container {
+        height: 300px;
+    }
+
+    .icon-wrapper {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Ultra small devices (480px and down) */
+@media (max-width: 479.98px) {
+    .display-3 {
+        font-size: 1.5rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    .viewer-container {
+        min-height: 250px;
+        padding: 8px;
+    }
+
+    #stl-container {
+        height: 250px;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    .icon-wrapper {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .control-group {
+        padding: 6px;
+    }
+
+    .form-range {
+        height: 6px;
+    }
+
+    .form-range::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
+    }
+
+    .form-range::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Landscape orientation on mobile devices */
+@media (max-height: 480px) and (orientation: landscape) {
+    .viewer-container {
+        min-height: 200px;
+    }
+
+    #stl-container {
+        height: 200px;
+    }
+
+    .display-3 {
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .btn,
+    .upload-area,
+    .control-group {
+        display: none !important;
+    }
+
+    .viewer-container {
+        background: white !important;
+        box-shadow: none !important;
+    }
+
+    canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}

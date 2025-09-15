@@ -1,0 +1,92 @@
+<!-- 3D Evaluation Mode -->
+<div
+    id="mode-3d"
+    style="
+        display: none;
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    "
+>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-3">
+                    <button
+                        class="btn btn-light shadow-sm"
+                        onclick="showLanding()"
+                    >
+                        <i class="fas fa-arrow-left me-2"></i>Back
+                    </button>
+                    <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                        3D Model Evaluation
+                    </h2>
+                    <div style="width: 73px"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div
+                                class="icon-wrapper me-3"
+                                style="
+                                    width: 48px;
+                                    height: 48px;
+                                    background: linear-gradient(
+                                        135deg,
+                                        #667eea 0%,
+                                        #764ba2 100%
+                                    );
+                                    border-radius: 12px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                "
+                            >
+                                <i class="fas fa-cube text-white"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 fw-bold">
+                                    3D Mesh Upload
+                                </h5>
+                                <small class="text-muted"
+                                    >STL Format Supported</small
+                                >
+                            </div>
+                        </div>
+                        <div
+                            class="upload-area p-4 border-2 border-dashed rounded-3 text-center"
+                            style="
+                                background: #f8f9fa;
+                                border-color: #dee2e6 !important;
+                            "
+                        >
+                            <i
+                                class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"
+                            ></i>
+                            <p class="mb-2">
+                                Drag and drop your STL file here or
+                            </p>
+                            <input
+                                type="file"
+                                id="stlFile"
+                                class="form-control"
+                                accept=".stl"
+                                style="max-width: 300px; margin: 0 auto"
+                            />
+                            <small
+                                class="form-text text-muted mt-2 d-block"
+                                >Supports binary and ASCII STL
+                                formats</small
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

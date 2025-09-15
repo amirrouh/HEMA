@@ -1,0 +1,229 @@
+/* HEMA - Components CSS - Component-specific styles */
+
+/* Button Components */
+.btn-gradient-primary {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-gradient-success {
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-gradient-success:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-gradient-info {
+    background: var(--info-gradient);
+    color: white;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-gradient-info:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+/* Card Components */
+.card {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card.border-0 {
+    box-shadow: var(--shadow-lg);
+}
+
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl) !important;
+}
+
+/* Icon Components */
+.icon-wrapper {
+    animation: pulse 2s infinite;
+}
+
+/* Upload Components */
+.upload-area {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    background: #e9ecef !important;
+    border-color: #adb5bd !important;
+}
+
+.upload-area input[type="file"] {
+    cursor: pointer;
+}
+
+/* Viewer Components */
+.viewer-container {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.viewer-container.has-files {
+    background: #000;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* Canvas Components */
+#canvas-container {
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    display: block;
+}
+
+#imageCanvas {
+    z-index: 1;
+}
+
+#labelCanvas {
+    z-index: 2;
+}
+
+/* STL Viewer Components */
+#stl-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+#stlCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+}
+
+#stlCanvas:active {
+    cursor: grabbing;
+}
+
+/* Control Components */
+.control-group {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.control-group:hover {
+    background: #e9ecef;
+}
+
+/* Form Range Components */
+.form-range {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form-range::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-gradient);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-gradient);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.form-range::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Badge Components */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 1em;
+    font-size: 0.875rem;
+}
+
+/* Alert Components */
+.alert-danger {
+    background: var(--danger-gradient);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+/* Placeholder Components */
+.placeholder {
+    color: #6c757d;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+}

@@ -1,0 +1,138 @@
+<!-- Landing Page -->
+<div
+    id="landing-page"
+    class="min-vh-100 d-flex align-items-center"
+    style="
+        padding-top: 60px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    "
+>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h1
+                    class="display-3 fw-bold mb-3"
+                    style="
+                        background: linear-gradient(
+                            135deg,
+                            #667eea 0%,
+                            #764ba2 100%
+                        );
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    "
+                >
+                    HEMA Platform
+                </h1>
+                <p class="lead text-muted">
+                    Human Evaluation of Medical AI Platform
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-10 col-xl-8 mx-auto">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-6 col-lg-5">
+                        <div
+                            class="card h-100 border-0 shadow-lg hover-lift"
+                        >
+                            <div
+                                class="card-body text-center d-flex flex-column p-4"
+                            >
+                                <div
+                                    class="icon-wrapper mb-3 mx-auto"
+                                    style="
+                                        width: 80px;
+                                        height: 80px;
+                                        background: linear-gradient(
+                                            135deg,
+                                            #11998e 0%,
+                                            #38ef7d 100%
+                                        );
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    "
+                                >
+                                    <i
+                                        class="fas fa-layer-group fa-2x text-white"
+                                    ></i>
+                                </div>
+                                <h4 class="card-title fw-bold">
+                                    Segmentation
+                                </h4>
+                                <p
+                                    class="card-text text-muted flex-grow-1"
+                                >
+                                    Analyze medical image segmentation
+                                    with overlay visualization and label
+                                    category detection.
+                                </p>
+                                <button
+                                    class="btn btn-lg btn-gradient-success w-100"
+                                    onclick="showMode('segmentation')"
+                                >
+                                    <i
+                                        class="fas fa-layer-group me-2"
+                                    ></i
+                                    >Start Evaluation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5">
+                        <div
+                            class="card h-100 border-0 shadow-lg hover-lift"
+                        >
+                            <div
+                                class="card-body text-center d-flex flex-column p-4"
+                            >
+                                <div
+                                    class="icon-wrapper mb-3 mx-auto"
+                                    style="
+                                        width: 80px;
+                                        height: 80px;
+                                        background: linear-gradient(
+                                            135deg,
+                                            #fa709a 0%,
+                                            #fee140 100%
+                                        );
+                                        border-radius: 50%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    "
+                                >
+                                    <i
+                                        class="fas fa-file-alt fa-2x text-white"
+                                    ></i>
+                                </div>
+                                <h4 class="card-title fw-bold">
+                                    Text Analysis
+                                </h4>
+                                <p
+                                    class="card-text text-muted flex-grow-1"
+                                >
+                                    Evaluate AI-generated medical text,
+                                    reports, and natural language
+                                    processing outputs.
+                                </p>
+                                <button
+                                    class="btn btn-lg btn-gradient-info w-100"
+                                    onclick="showMode('text')"
+                                >
+                                    <i class="fas fa-file-alt me-2"></i
+                                    >Start Evaluation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
