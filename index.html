@@ -16,83 +16,43 @@
         />
 
         <!-- Modular CSS -->
-        <link rel="stylesheet" href="css/main.css" />
-        <link rel="stylesheet" href="css/components.css" />
-        <link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="css/layout.css" />
+
     </head>
     <body>
         <!-- Navigation Bar -->
-        <nav
-            class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm"
-            style="
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            "
-        >
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm navbar-custom">
             <div class="container-fluid px-4">
-                <a
-                    class="navbar-brand fw-bold d-flex align-items-center"
-                    href="#"
-                    style="color: #6366f1; font-size: 1.5rem"
-                >
-                    <div
-                        class="d-flex align-items-center justify-content-center me-3"
-                        style="
-                            width: 40px;
-                            height: 40px;
-                            background: linear-gradient(
-                                135deg,
-                                #6366f1 0%,
-                                #8b5cf6 100%
-                            );
-                            border-radius: 12px;
-                        "
-                    >
-                        <i
-                            class="fas fa-heartbeat text-white"
-                            style="font-size: 1.2rem"
-                        ></i>
+                <a class="navbar-brand fw-bold d-flex align-items-center navbar-brand-custom" href="#">
+                    <div class="d-flex align-items-center justify-content-center me-3 navbar-brand-icon">
+                        <i class="fas fa-heartbeat text-white"></i>
                     </div>
-                    <span style="letter-spacing: -0.5px">HEMA</span>
+                    <span>HEMA</span>
                 </a>
-                <span
-                    class="navbar-text ms-3"
-                    style="color: #64748b; font-size: 0.95rem; font-weight: 500"
-                >
+                <span class="navbar-text ms-3 navbar-subtitle">
                     Human Evaluation of Medical AI Platform
                 </span>
+                <div class="ms-auto d-flex gap-2">
+                    <button id="refreshBtn" class="btn btn-outline-light btn-sm refresh-btn-custom" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Start fresh">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button id="reportBtn" class="btn btn-outline-light btn-sm report-btn-custom" style="display: none;">
+                        <i class="fas fa-file-medical me-2"></i>Report
+                    </button>
+                </div>
             </div>
         </nav>
 
         <!-- Landing Page -->
-        <div
-            id="landing-page"
-            class="min-vh-100 d-flex align-items-center"
-            style="
-                padding-top: 60px;
-                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            "
-        >
+        <div id="landing-page" class="min-vh-100 d-flex align-items-center landing-page-bg">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center mb-5">
-                        <h1
-                            class="display-3 fw-bold mb-3"
-                            style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #667eea 0%,
-                                    #764ba2 100%
-                                );
-                                -webkit-background-clip: text;
-                                background-clip: text;
-                                -webkit-text-fill-color: transparent;
-                            "
-                        >
+                        <h1 class="display-3 fw-bold mb-3 landing-title">
                             HEMA Platform
                         </h1>
-                        <p class="lead text-muted">
+                        <p class="lead landing-subtitle">
                             Human Evaluation of Medical AI Platform
                         </p>
                     </div>
@@ -102,98 +62,42 @@
                     <div class="col-lg-10 col-xl-8 mx-auto">
                         <div class="row g-4 justify-content-center">
                             <div class="col-md-6 col-lg-5">
-                                <div
-                                    class="card h-100 border-0 shadow-lg hover-lift"
-                                >
-                                    <div
-                                        class="card-body text-center d-flex flex-column p-4"
-                                    >
-                                        <div
-                                            class="icon-wrapper mb-3 mx-auto"
-                                            style="
-                                                width: 80px;
-                                                height: 80px;
-                                                background: linear-gradient(
-                                                    135deg,
-                                                    #11998e 0%,
-                                                    #38ef7d 100%
-                                                );
-                                                border-radius: 50%;
-                                                display: flex;
-                                                align-items: center;
-                                                justify-content: center;
-                                            "
-                                        >
-                                            <i
-                                                class="fas fa-layer-group fa-2x text-white"
-                                            ></i>
+                                <div class="card h-100 border-0 shadow-lg hover-lift card-custom">
+                                    <div class="card-body text-center d-flex flex-column p-4">
+                                        <div class="icon-wrapper mb-3 mx-auto mode-icon icon-bg-segmentation">
+                                            <i class="fas fa-layer-group text-white"></i>
                                         </div>
-                                        <h4 class="card-title fw-bold">
+                                        <h4 class="card-title fw-bold card-title-custom">
                                             Segmentation
                                         </h4>
-                                        <p
-                                            class="card-text text-muted flex-grow-1"
-                                        >
+                                        <p class="card-text flex-grow-1 card-text-custom">
                                             Analyze medical image segmentation
                                             with overlay visualization and label
                                             category detection.
                                         </p>
-                                        <button
-                                            class="btn btn-lg btn-gradient-success w-100"
-                                            data-mode="segmentation"
-                                        >
-                                            <i
-                                                class="fas fa-layer-group me-2"
-                                            ></i
-                                            >Start Evaluation
+                                        <button class="btn btn-lg w-100 btn-segmentation" data-mode="segmentation">
+                                            <i class="fas fa-layer-group me-2"></i>Start Evaluation
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-lg-5">
-                                <div
-                                    class="card h-100 border-0 shadow-lg hover-lift"
-                                >
-                                    <div
-                                        class="card-body text-center d-flex flex-column p-4"
-                                    >
-                                        <div
-                                            class="icon-wrapper mb-3 mx-auto"
-                                            style="
-                                                width: 80px;
-                                                height: 80px;
-                                                background: linear-gradient(
-                                                    135deg,
-                                                    #fa709a 0%,
-                                                    #fee140 100%
-                                                );
-                                                border-radius: 50%;
-                                                display: flex;
-                                                align-items: center;
-                                                justify-content: center;
-                                            "
-                                        >
-                                            <i
-                                                class="fas fa-file-alt fa-2x text-white"
-                                            ></i>
+                                <div class="card h-100 border-0 shadow-lg hover-lift card-custom">
+                                    <div class="card-body text-center d-flex flex-column p-4">
+                                        <div class="icon-wrapper mb-3 mx-auto mode-icon icon-bg-text">
+                                            <i class="fas fa-file-alt text-white"></i>
                                         </div>
-                                        <h4 class="card-title fw-bold">
+                                        <h4 class="card-title fw-bold card-title-custom">
                                             Text Analysis
                                         </h4>
-                                        <p
-                                            class="card-text text-muted flex-grow-1"
-                                        >
+                                        <p class="card-text flex-grow-1 card-text-custom">
                                             Evaluate AI-generated medical text,
                                             reports, and natural language
                                             processing outputs.
                                         </p>
-                                        <button
-                                            class="btn btn-lg btn-gradient-info w-100"
-                                            data-mode="text"
-                                        >
-                                            <i class="fas fa-file-alt me-2"></i
-                                            >Start Evaluation
+                                        <button class="btn btn-lg w-100 btn-text" data-mode="text">
+                                            <i class="fas fa-file-alt me-2"></i>Start Evaluation
                                         </button>
                                     </div>
                                 </div>
@@ -212,7 +116,7 @@
                 display: none;
                 padding-top: 60px;
                 padding-bottom: 40px;
-                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             "
         >
             <div class="container">
@@ -220,11 +124,12 @@
                     <div class="col-12">
                         <div class="d-flex align-items-center mb-2">
                             <button
-                                class="btn btn-light shadow-sm back-button"
+                                class="btn shadow-sm back-button"
+                                style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(71, 85, 105, 0.3); color: #f1f5f9; backdrop-filter: blur(10px);"
                             >
                                 <i class="fas fa-arrow-left me-2"></i>Back
                             </button>
-                            <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                            <h2 class="flex-grow-1 text-center mb-0 fw-bold" style="color: #f1f5f9;">
                                 Segmentation Evaluation
                             </h2>
                             <div style="width: 73px"></div>
@@ -236,7 +141,7 @@
                     <div class="col-lg-10">
                         <div class="row g-4">
                             <div class="col-md-6">
-                                <div class="card border-0 shadow-lg h-100">
+                                <div class="card border-0 shadow-lg h-100" style="background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(71, 85, 105, 0.3) !important;">
                                     <div class="card-body p-4">
                                         <div
                                             class="d-flex align-items-center mb-3"
@@ -248,13 +153,14 @@
                                                     height: 48px;
                                                     background: linear-gradient(
                                                         135deg,
-                                                        #11998e 0%,
-                                                        #38ef7d 100%
+                                                        #059669 0%,
+                                                        #10b981 100%
                                                     );
                                                     border-radius: 12px;
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: center;
+                                                    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
                                                 "
                                             >
                                                 <i
@@ -262,10 +168,10 @@
                                                 ></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold">
+                                                <h5 class="mb-0 fw-bold" style="color: #f1f5f9;">
                                                     Medical Image
                                                 </h5>
-                                                <small class="text-muted"
+                                                <small style="color: #94a3b8;"
                                                     >Base scan data</small
                                                 >
                                             </div>
@@ -273,8 +179,8 @@
                                         <div
                                             class="upload-area p-3 border-2 border-dashed rounded-3"
                                             style="
-                                                background: #f8f9fa;
-                                                border-color: #dee2e6 !important;
+                                                background: rgba(15, 23, 42, 0.6);
+                                                border-color: rgba(71, 85, 105, 0.3) !important;
                                             "
                                         >
                                             <input
@@ -282,8 +188,9 @@
                                                 id="imageFile"
                                                 class="form-control mb-2"
                                                 accept=".nrrd,.nii,.nii.gz"
+                                                style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(71, 85, 105, 0.3); color: #f1f5f9;"
                                             />
-                                            <small class="form-text text-muted"
+                                            <small class="form-text" style="color: #64748b;"
                                                 >NRRD, NIfTI (.nii/.nii.gz)
                                                 formats</small
                                             >
@@ -292,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="card border-0 shadow-lg h-100">
+                                <div class="card border-0 shadow-lg h-100" style="background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(71, 85, 105, 0.3) !important;">
                                     <div class="card-body p-4">
                                         <div
                                             class="d-flex align-items-center mb-3"
@@ -304,13 +211,14 @@
                                                     height: 48px;
                                                     background: linear-gradient(
                                                         135deg,
-                                                        #f093fb 0%,
-                                                        #f5576c 100%
+                                                        #dc2626 0%,
+                                                        #ea580c 100%
                                                     );
                                                     border-radius: 12px;
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: center;
+                                                    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
                                                 "
                                             >
                                                 <i
@@ -318,10 +226,10 @@
                                                 ></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold">
+                                                <h5 class="mb-0 fw-bold" style="color: #f1f5f9;">
                                                     Segmentation Labels
                                                 </h5>
-                                                <small class="text-muted"
+                                                <small style="color: #94a3b8;"
                                                     >Overlay annotations</small
                                                 >
                                             </div>
@@ -329,8 +237,8 @@
                                         <div
                                             class="upload-area p-3 border-2 border-dashed rounded-3"
                                             style="
-                                                background: #f8f9fa;
-                                                border-color: #dee2e6 !important;
+                                                background: rgba(15, 23, 42, 0.6);
+                                                border-color: rgba(71, 85, 105, 0.3) !important;
                                             "
                                         >
                                             <input
@@ -338,8 +246,9 @@
                                                 id="labelFile"
                                                 class="form-control mb-2"
                                                 accept=".nrrd,.nii,.nii.gz"
+                                                style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(71, 85, 105, 0.3); color: #f1f5f9;"
                                             />
-                                            <small class="form-text text-muted"
+                                            <small class="form-text" style="color: #64748b;"
                                                 >Must match image
                                                 dimensions</small
                                             >
@@ -360,7 +269,7 @@
                 display: none;
                 padding-top: 60px;
                 padding-bottom: 40px;
-                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             "
         >
             <div class="container">
@@ -368,11 +277,12 @@
                     <div class="col-12">
                         <div class="d-flex align-items-center mb-3">
                             <button
-                                class="btn btn-light shadow-sm back-button"
+                                class="btn shadow-sm back-button"
+                                style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(71, 85, 105, 0.3); color: #f1f5f9; backdrop-filter: blur(10px);"
                             >
                                 <i class="fas fa-arrow-left me-2"></i>Back
                             </button>
-                            <h2 class="flex-grow-1 text-center mb-0 fw-bold">
+                            <h2 class="flex-grow-1 text-center mb-0 fw-bold" style="color: #f1f5f9;">
                                 Text Analysis Evaluation
                             </h2>
                             <div style="width: 73px"></div>
@@ -382,7 +292,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
-                        <div class="card border-0 shadow-lg">
+                        <div class="card border-0 shadow-lg" style="background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(71, 85, 105, 0.3) !important;">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-center mb-4">
                                     <div
@@ -392,13 +302,14 @@
                                             height: 48px;
                                             background: linear-gradient(
                                                 135deg,
-                                                #fa709a 0%,
-                                                #fee140 100%
+                                                #3b82f6 0%,
+                                                #1d4ed8 100%
                                             );
                                             border-radius: 12px;
                                             display: flex;
                                             align-items: center;
                                             justify-content: center;
+                                            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
                                         "
                                     >
                                         <i
@@ -406,10 +317,10 @@
                                         ></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">
+                                        <h5 class="mb-0 fw-bold" style="color: #f1f5f9;">
                                             Medical Text Analysis
                                         </h5>
-                                        <small class="text-muted"
+                                        <small style="color: #94a3b8;"
                                             >Evaluate AI-generated medical
                                             content</small
                                         >
@@ -419,6 +330,7 @@
                                     <label
                                         for="textInput"
                                         class="form-label fw-semibold"
+                                        style="color: #f1f5f9;"
                                         >Input Text</label
                                     >
                                     <textarea
@@ -427,21 +339,25 @@
                                         rows="12"
                                         placeholder="Paste AI-generated medical text, reports, or clinical notes here for evaluation..."
                                         style="
-                                            font-family:
-                                                &quot;Inter&quot;, sans-serif;
+                                            font-family: 'Inter', sans-serif;
                                             line-height: 1.6;
+                                            background: rgba(15, 23, 42, 0.6);
+                                            border: 1px solid rgba(71, 85, 105, 0.3);
+                                            color: #f1f5f9;
                                         "
                                     ></textarea>
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button
-                                        class="btn btn-gradient-primary btn-lg px-4"
+                                        class="btn btn-lg px-4"
+                                        style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border: none; color: white; font-weight: 600; border-radius: 12px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);"
                                     >
                                         <i class="fas fa-microscope me-2"></i
                                         >Analyze Text
                                     </button>
                                     <button
-                                        class="btn btn-outline-secondary btn-lg px-4"
+                                        class="btn btn-lg px-4"
+                                        style="background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(71, 85, 105, 0.3); color: #f1f5f9; border-radius: 12px;"
                                     >
                                         <i class="fas fa-upload me-2"></i>Upload
                                         File
@@ -459,23 +375,23 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center">
-                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.3), transparent);"></div>
                         <div class="mx-3">
-                            <span class="badge bg-white text-muted border shadow-sm px-4 py-3" style="font-size: 1rem;">
+                            <span class="badge border shadow-sm px-4 py-3" style="font-size: 1rem; background: rgba(30, 41, 59, 0.8); color: #f1f5f9; border-color: rgba(71, 85, 105, 0.3) !important;">
                                 <i class="fas fa-chart-line me-2"></i>Visualization
                             </span>
                         </div>
-                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(100, 116, 139, 0.2), transparent);"></div>
+                        <div class="flex-grow-1" style="height: 1px; background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.3), transparent);"></div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Shared Viewer Container -->
-        <div id="viewer-container" class="container mb-3" style="display: none">
+        <div id="viewer-container" class="container" style="display: none">
             <div class="row">
                 <div class="col-12">
-                    <div class="card border-0 shadow-lg">
+                    <div class="card border-0 shadow-lg" style="background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(71, 85, 105, 0.3) !important;">
                         <div class="card-body p-0">
                             <div id="viewer" class="viewer-container">
                                 <!-- Segmentation Viewer -->
@@ -485,18 +401,84 @@
                                 >
                                     <canvas id="imageCanvas"></canvas>
                                     <canvas id="labelCanvas"></canvas>
-                                    <!-- Zoom Controls Overlay -->
-                                    <div id="zoom-controls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background: rgba(255, 255, 255, 0.9); border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 5px;">
-                                        <button id="zoomIn" class="btn btn-outline-secondary btn-sm" style="padding: 6px 10px;">
-                                            <i class="fas fa-search-plus"></i>
-                                        </button>
-                                        <button id="resetView" class="btn btn-outline-secondary btn-sm" style="padding: 6px 10px;">
-                                            <i class="fas fa-expand-arrows-alt"></i>
-                                        </button>
-                                        <button id="zoomOut" class="btn btn-outline-secondary btn-sm" style="padding: 6px 10px;">
-                                            <i class="fas fa-search-minus"></i>
-                                        </button>
-                                        <span class="badge bg-success rounded-pill px-2 text-center" id="zoomValue" style="min-width: 50px; font-size: 11px;">100%</span>
+                                    <canvas id="annotationCanvas"></canvas>
+                                    <!-- Viewer Controls Overlay -->
+                                    <div id="viewer-controls" style="position: absolute; top: 10px; right: 10px; z-index: 1000; opacity: 0.3; transition: opacity 0.3s ease; display: flex; flex-direction: column; gap: 10px;">
+                                        <!-- Zoom Controls -->
+                                        <div class="control-panel" style="background: rgba(26, 32, 44, 0.95); border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 5px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <button id="panTool" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Pan Tool (Click and Drag)">
+                                                <i class="fas fa-hand-paper"></i>
+                                            </button>
+                                            <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 3px 0;"></div>
+                                            <button id="zoomIn" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Zoom In">
+                                                <i class="fas fa-search-plus"></i>
+                                            </button>
+                                            <button id="resetView" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Fit to View">
+                                                <i class="fas fa-expand-arrows-alt"></i>
+                                            </button>
+                                            <button id="zoomOut" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Zoom Out">
+                                                <i class="fas fa-search-minus"></i>
+                                            </button>
+                                            <span class="badge bg-primary rounded-pill px-2 text-center" id="zoomValue" style="min-width: 50px; font-size: 11px; background: #4f46e5 !important;">100%</span>
+                                        </div>
+
+                                        <!-- Annotation Tools -->
+                                        <div class="control-panel" style="background: rgba(26, 32, 44, 0.95); border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 5px; border: 1px solid rgba(255,255,255,0.1);">
+                                            <button id="drawTool" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Draw Annotation">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+                                            <button id="eraseTool" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Erase Annotation">
+                                                <i class="fas fa-eraser"></i>
+                                            </button>
+                                            <button id="commentTool" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Add Comment">
+                                                <i class="fas fa-comment"></i>
+                                            </button>
+                                            <button id="clearAnnotations" class="btn btn-outline-light btn-sm" style="padding: 6px 10px; border-color: rgba(255,255,255,0.3); color: #e2e8f0;" title="Clear All">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <div style="height: 1px; background: rgba(255,255,255,0.2); margin: 5px 0;"></div>
+                                            <input type="color" id="colorPicker" value="#ff0000" title="Drawing Color" style="width: 100%; height: 30px; border: none; border-radius: 4px; cursor: pointer;">
+                                            <small style="font-size: 9px; text-align: center; color: #e2e8f0; margin-top: 2px;">Color</small>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Star Rating Panel (Left Side) -->
+                                    <div id="star-rating-panel" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); z-index: 1000; opacity: 0.7; transition: opacity 0.3s ease; display: none;">
+                                        <div class="control-panel" style="background: rgba(26, 32, 44, 0.95); border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 3px; align-items: center;">
+                                            <small style="font-size: 8px; color: #e2e8f0; margin-bottom: 5px; writing-mode: vertical-rl; text-orientation: mixed;">Rate</small>
+                                            <div id="starRating" style="display: flex; flex-direction: column-reverse; gap: 3px;">
+                                                <!-- 10 stars from bottom to top (1-10) -->
+                                                <i class="fas fa-star star" data-rating="1" title="1 Star" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="2" title="2 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="3" title="3 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="4" title="4 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="5" title="5 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="6" title="6 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="7" title="7 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="8" title="8 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="9" title="9 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                                <i class="fas fa-star star" data-rating="10" title="10 Stars" style="color: #64748b; cursor: pointer; font-size: 12px; transition: all 0.2s ease;"></i>
+                                            </div>
+                                            <small id="ratingDisplay" style="font-size: 7px; color: #94a3b8; margin-top: 5px; writing-mode: vertical-rl;">0/10</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comments Panel -->
+                                    <div id="comments-panel" style="position: absolute; bottom: 10px; left: 10px; z-index: 1000; background: rgba(26, 32, 44, 0.95); border-radius: 8px; padding: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); width: 300px; max-height: 200px; overflow-y: auto; display: none; border: 1px solid rgba(255,255,255,0.1);">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="m-0 fw-bold" style="color: #e2e8f0;">Slice Comments</h6>
+                                            <button id="closeComments" class="btn-close btn-sm" style="font-size: 10px; filter: invert(1);"></button>
+                                        </div>
+                                        <div id="comments-list" style="max-height: 100px; overflow-y: auto; margin-bottom: 8px;">
+                                            <!-- Comments will be dynamically added here -->
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="text" id="comment-input" class="form-control form-control-sm" placeholder="Add comment..." autocomplete="off" style="pointer-events: auto; z-index: 1;">
+                                            <button id="add-comment" class="btn btn-primary btn-sm" type="button">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div
@@ -511,19 +493,21 @@
             </div>
 
             <!-- Segmentation Controls -->
-            <div class="row mt-3" id="controls" style="display: none">
+            <div class="row" id="controls" style="display: none">
                 <div class="col-12">
-                    <div class="card border-0 shadow">
-                        <div class="card-body">
+                    <div class="card border-0 shadow" style="background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); backdrop-filter: blur(20px); border: 1px solid rgba(71, 85, 105, 0.3) !important;">
+                        <div class="card-body" style="background: transparent !important; color: #f1f5f9 !important;">
                             <div class="row g-4 align-items-center">
                                 <div class="col-md-6">
                                     <div class="control-group">
                                         <label
                                             for="sliceSlider"
                                             class="form-label fw-semibold"
+                                            style="color: #f1f5f9;"
                                         >
                                             <i
-                                                class="fas fa-layer-group me-2 text-primary"
+                                                class="fas fa-layer-group me-2"
+                                                style="color: #10b981;"
                                             ></i
                                             >Slice Navigation
                                         </label>
@@ -537,11 +521,12 @@
                                                 min="0"
                                                 max="0"
                                                 value="0"
+                                                style="accent-color: #10b981;"
                                             />
                                             <span
-                                                class="badge bg-primary rounded-pill px-3"
+                                                class="badge rounded-pill px-3"
                                                 id="sliceInfo"
-                                                style="min-width: 60px"
+                                                style="min-width: 60px; background: #10b981; color: white;"
                                                 >1/1</span
                                             >
                                         </div>
@@ -552,9 +537,11 @@
                                         <label
                                             for="opacitySlider"
                                             class="form-label fw-semibold"
+                                            style="color: #f1f5f9;"
                                         >
                                             <i
-                                                class="fas fa-adjust me-2 text-info"
+                                                class="fas fa-adjust me-2"
+                                                style="color: #3b82f6;"
                                             ></i
                                             >Label Opacity
                                         </label>
@@ -568,11 +555,12 @@
                                                 min="0"
                                                 max="100"
                                                 value="50"
+                                                style="accent-color: #3b82f6;"
                                             />
                                             <span
-                                                class="badge bg-info rounded-pill px-3"
+                                                class="badge rounded-pill px-3"
                                                 id="opacityValue"
-                                                style="min-width: 60px"
+                                                style="min-width: 60px; background: #3b82f6; color: white;"
                                                 >50%</span
                                             >
                                         </div>
@@ -583,13 +571,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Generate Report Section -->
+            <div class="row mt-4" id="report-section" style="display: none">
+                <div class="col-12">
+                    <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);">
+                        <div class="card-body text-center p-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="text-white mb-2 fw-bold">
+                                        <i class="fas fa-file-medical-alt me-2 text-primary"></i>
+                                        Medical Analysis Report
+                                    </h5>
+                                    <p class="text-light mb-0" style="opacity: 0.8;">
+                                        Generate a comprehensive report with all annotations, comments, and medical images for clinical documentation.
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="generateReportBtn" class="btn btn-primary btn-lg px-4 py-3 fw-bold shadow-lg" style="border-radius: 15px; transition: all 0.3s ease; background: #4f46e5; border-color: #4f46e5;">
+                                        <i class="fas fa-file-pdf me-2"></i>
+                                        Generate Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- External JavaScript Dependencies -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+
+        <!-- jsPDF with fallback -->
+        <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"
+                onerror="this.onerror=null; this.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Debug script to check jsPDF loading -->
+        <script>
+        window.addEventListener('load', function() {
+            console.log('Checking jsPDF availability...');
+            console.log('window.jspdf:', typeof window.jspdf);
+            console.log('window.jsPDF:', typeof window.jsPDF);
+            console.log('window.jspdf.jsPDF:', window.jspdf ? typeof window.jspdf.jsPDF : 'N/A');
+
+            // Make sure jsPDF is globally accessible
+            if (window.jspdf && window.jspdf.jsPDF && !window.jsPDF) {
+                window.jsPDF = window.jspdf.jsPDF;
+                console.log('Set global jsPDF from window.jspdf.jsPDF');
+            }
+        });
+        </script>
+
         <!-- Main Application Script -->
+        <!-- Main Application -->
         <script src="js/hema-app.js"></script>
     </body>
 </html>

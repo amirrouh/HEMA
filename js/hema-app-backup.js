@@ -796,13 +796,7 @@
             const imageData = this.getImageData();
             const labelData = this.getLabelData();
 
-            console.log('Image dimensions:', imageData.sizes);
-            console.log('Label dimensions:', labelData.sizes);
-
-            const dimensionsMatch = imageData.sizes.join(',') === labelData.sizes.join(',');
-            console.log('Dimensions match?', dimensionsMatch);
-
-            return dimensionsMatch;
+            return imageData.sizes.join(',') === labelData.sizes.join(',');
         }
     };
 
@@ -1048,181 +1042,61 @@
         },
 
         startFresh: function() {
-            console.log('Starting fresh - clearing all project data...');
-
-            // === Force finish any pending annotations ===
-            if (this.segmentationViewer && this.segmentationViewer.isAnnotating) {
-                this.segmentationViewer.isAnnotating = false;
-                console.log('Forced stop of pending annotation');
-            }
-
-            // === Clear ALL localStorage data ===
-            // Clear specific known keys
+            // Clear all stored data
             localStorage.removeItem('hema-comments');
-            localStorage.removeItem('hema-slice-ratings');
+            localStorage.removeItem('hema-ratings');
             localStorage.removeItem('hema-annotations');
             localStorage.removeItem('hema-slice-vector-annotations');
-            localStorage.removeItem('hema-slice-images');
 
-            // Clear any other hema-related data that might exist
-            const keysToRemove = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key && key.startsWith('hema-')) {
-                    keysToRemove.push(key);
-                }
-            }
-            keysToRemove.forEach(key => {
-                console.log('Removing localStorage key:', key);
-                localStorage.removeItem(key);
-            });
-
-            // === Clear in-memory data ===
-            // Reset slice ratings
-            this.sliceRatings = {};
-
-            // Clear slice annotations from memory - MULTIPLE ATTEMPTS
-            if (this.segmentationViewer) {
-                // Clear all annotation data structures
-                if (this.segmentationViewer.sliceAnnotations) {
-                    console.log('Clearing sliceAnnotations - before:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
-                    this.segmentationViewer.sliceAnnotations = {};
-                    console.log('Clearing sliceAnnotations - after:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
-                }
-
-                // Clear current drawing data immediately
-                this.segmentationViewer.currentDrawingCoords = null;
-                this.segmentationViewer.isAnnotating = false;
-
-                // Force save cleared annotations multiple times to ensure persistence
+            // Clear slice annotations from memory FIRST
+            if (this.segmentationViewer && this.segmentationViewer.sliceAnnotations) {
+                this.segmentationViewer.sliceAnnotations = {};
+                // Save the cleared annotations to localStorage
                 if (typeof this.segmentationViewer.saveSliceAnnotations === 'function') {
                     this.segmentationViewer.saveSliceAnnotations();
-                    // Save again after a small delay to handle any async issues
-                    setTimeout(() => {
-                        this.segmentationViewer.saveSliceAnnotations();
-                        console.log('Second annotation save completed');
-                    }, 100);
-                }
-
-                // Clear annotation mode
-                if (typeof this.segmentationViewer.setAnnotationMode === 'function') {
-                    this.segmentationViewer.setAnnotationMode(null);
-                }
-
-                // Clear current drawing data
-                if (this.segmentationViewer.currentDrawingCoords) {
-                    this.segmentationViewer.currentDrawingCoords = [];
-                }
-                if (this.segmentationViewer.isAnnotating) {
-                    this.segmentationViewer.isAnnotating = false;
-                }
-
-                // Force save empty data to prevent restoration from cache
-                if (typeof this.segmentationViewer.saveRatings === 'function') {
-                    this.segmentationViewer.saveRatings();
                 }
             }
 
-            // === Force save empty data structures ===
-            // Save empty ratings
-            if (typeof this.saveRatings === 'function') {
-                this.saveRatings();
-            }
-
-            // Force save empty data structures to localStorage - MULTIPLE ATTEMPTS
-            localStorage.setItem('hema-comments', JSON.stringify([]));
-            localStorage.setItem('hema-slice-images', JSON.stringify({}));
-            localStorage.setItem('hema-slice-vector-annotations', JSON.stringify({}));
-            localStorage.setItem('hema-slice-ratings', JSON.stringify({}));
-
-            // Verify clearing with delay to handle async operations
-            setTimeout(() => {
-                console.log('=== VERIFICATION AFTER DELAY ===');
-                console.log('localStorage hema-slice-vector-annotations:', localStorage.getItem('hema-slice-vector-annotations'));
-                console.log('localStorage hema-slice-ratings:', localStorage.getItem('hema-slice-ratings'));
-                console.log('In-memory sliceAnnotations keys:', this.segmentationViewer ? Object.keys(this.segmentationViewer.sliceAnnotations || {}).length : 'N/A');
-            }, 200);
-
-            // === Clear all canvas drawings ===
+            // Clear all annotations from canvas
             if (this.segmentationViewer && this.segmentationViewer.annotationCanvas) {
                 const ctx = this.segmentationViewer.annotationCanvas.getContext('2d');
                 ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
             }
 
-            // === Reset UI elements ===
+            // Reset slice ratings
+            this.sliceRatings = {};
+
             // Clear comments display
             const commentsList = Utils.getElementById(CONFIG.ELEMENTS.COMMENTS_LIST);
             if (commentsList) {
                 commentsList.innerHTML = '<p class="text-muted mb-0">No comments for this slice</p>';
             }
 
-            // Clear comment input
-            const commentInput = Utils.getElementById(CONFIG.ELEMENTS.COMMENT_INPUT);
-            if (commentInput) {
-                commentInput.value = '';
-            }
-
             // Clear rating display
             const ratingDisplay = Utils.getElementById(CONFIG.ELEMENTS.RATING_DISPLAY);
             if (ratingDisplay) {
-                ratingDisplay.textContent = '0/10';
+                ratingDisplay.textContent = 'No rating';
             }
 
-            // Reset star rating to 0
+            // Reset star rating
             if (typeof this.highlightStars === 'function') {
                 this.highlightStars(0);
             }
 
-            // Clear any active tool selections
-            const toolButtons = ['panTool', 'drawTool', 'eraseTool', 'commentTool'];
-            toolButtons.forEach(buttonId => {
-                const btn = Utils.getElementById(buttonId);
-                if (btn) {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // === Re-render and update display ===
-            // Force clear canvas again and re-render multiple times to ensure clean state
-            if (this.segmentationViewer && this.segmentationViewer.annotationCanvas) {
-                const ctx = this.segmentationViewer.annotationCanvas.getContext('2d');
-                ctx.clearRect(0, 0, this.segmentationViewer.annotationCanvas.width, this.segmentationViewer.annotationCanvas.height);
-                console.log('Canvas cleared again before re-render');
-            }
-
-            // Re-render current slice to update display (without annotations)
+            // Re-render current slice to update display
             if (this.segmentationViewer && typeof this.segmentationViewer.renderSlice === 'function') {
                 this.segmentationViewer.renderSlice();
-                console.log('Slice re-rendered after clearing');
-
-                // Re-render again after a delay to ensure all annotations are gone
-                setTimeout(() => {
-                    this.segmentationViewer.renderSlice();
-                    console.log('Final re-render completed');
-                }, 300);
             }
 
-            // Update star display
-            if (typeof this.updateStarDisplay === 'function') {
-                this.updateStarDisplay();
-            }
-
-            // Hide report button (keep refresh button visible)
+            // Hide report button only (keep refresh button visible)
             const reportBtn = Utils.getElementById(CONFIG.ELEMENTS.REPORT_BTN);
-            if (reportBtn) {
-                reportBtn.style.display = 'none';
-            }
+            if (reportBtn) reportBtn.style.display = 'none';
 
-            // === Final verification ===
-            console.log('Project reset complete - all data cleared');
-            console.log('Remaining localStorage keys:', Object.keys(localStorage).filter(k => k.startsWith('hema-')));
-            console.log('Current sliceRatings:', this.sliceRatings);
-            if (this.segmentationViewer && this.segmentationViewer.sliceAnnotations) {
-                console.log('Current sliceAnnotations:', Object.keys(this.segmentationViewer.sliceAnnotations).length);
-            }
+            // Show success message
+            console.log('Memory cleared - starting fresh!');
 
-            // Show success notification
-            this.showNotification('All data cleared! Starting fresh...', 'success');
+            // Optionally show a brief notification
+            this.showNotification('Memory cleared! Starting fresh...', 'success');
         },
 
         showNotification: function(message, type = 'info') {
@@ -1252,8 +1126,14 @@
         generateReportHTML: function() {
             const comments = JSON.parse(localStorage.getItem('hema-comments') || '[]');
 
-            // Get comprehensive data for all evaluated slices
-            const evaluatedSlices = this.getAllEvaluatedSliceData();
+            // Group comments by slice
+            const commentsBySlice = {};
+            comments.forEach(comment => {
+                if (!commentsBySlice[comment.slice]) {
+                    commentsBySlice[comment.slice] = [];
+                }
+                commentsBySlice[comment.slice].push(comment);
+            });
 
             const reportHTML = `
 <!DOCTYPE html>
@@ -1297,59 +1177,51 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <strong>Evaluated Slices:</strong> ${this.getEvaluatedSlicesCount()}
+                                <strong>Evaluated Slices:</strong> ${Object.keys(commentsBySlice).length}
                             </div>
                             <div class="col-md-6">
-                                <strong>Average Rating:</strong> ${this.getAverageRatingDisplay()}
+                                <strong>Average Rating:</strong> ${this.calculateAverageRating()}/10 (${Object.values(this.sliceRatings).filter(r => r > 0).length} rated slices)
                             </div>
                         </div>
                     </div>
                 </div>
 
-                ${Object.keys(evaluatedSlices).length > 0 ?
-                    Object.entries(evaluatedSlices)
-                        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-                        .map(([sliceNum, sliceData]) => `
+                ${Object.keys(commentsBySlice).length > 0 ?
+                    Object.keys(commentsBySlice).map(slice => `
                         <div class="slice-section">
                             <div class="card">
                                 <div class="card-header">
-                                    <h6 class="mb-0">Slice ${sliceData.sliceNumber + 1}${sliceData.hasRating ? ` - Rating: ${sliceData.rating}/10` : ''}</h6>
+                                    <h6 class="mb-0">Slice ${parseInt(slice) + 1}${this.sliceRatings[slice] ? ` - Rating: ${this.sliceRatings[slice]}/10` : ''}</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        ${sliceData.sliceImage ? `
+                                        ${commentsBySlice[slice][0].sliceImage ? `
                                         <div class="col-md-5">
                                             <div class="text-center mb-3">
-                                                <img src="${sliceData.sliceImage}"
-                                                     alt="Slice ${sliceData.sliceNumber + 1}"
+                                                <img src="${commentsBySlice[slice][0].sliceImage}"
+                                                     alt="Slice ${parseInt(slice) + 1}"
                                                      class="img-fluid border"
                                                      style="max-height: 200px; background: #f8f9fa; border-radius: 4px;">
-                                                <small class="d-block text-muted mt-1">Medical Image${sliceData.hasComments ? ' with Annotations' : ''}</small>
+                                                <small class="d-block text-muted mt-1">Annotated Medical Image</small>
                                             </div>
                                         </div>
                                         <div class="col-md-7">
                                         ` : '<div class="col-12">'}
-                                            ${sliceData.hasComments ?
-                                                sliceData.comments.map(comment => `
-                                                    <div class="comment-item">
-                                                        <div class="d-flex justify-content-between">
-                                                            <small class="text-muted">${new Date(comment.timestamp).toLocaleString()}</small>
-                                                        </div>
-                                                        <div class="mt-1">${comment.text}</div>
+                                            ${commentsBySlice[slice].map(comment => `
+                                                <div class="comment-item">
+                                                    <div class="d-flex justify-content-between">
+                                                        <small class="text-muted">${new Date(comment.timestamp).toLocaleString()}</small>
                                                     </div>
-                                                `).join('') :
-                                                '<div class="text-muted"><em>No comments for this slice.</em></div>'
-                                            }
-                                            ${sliceData.hasRating && !sliceData.hasComments ?
-                                                `<div class="text-muted"><em>Rated ${sliceData.rating}/10 - No additional comments.</em></div>` : ''
-                                            }
+                                                    <div class="mt-1">${comment.text}</div>
+                                                </div>
+                                            `).join('')}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     `).join('') :
-                    '<div class="alert alert-info">No slices have been evaluated yet.</div>'
+                    '<div class="alert alert-info">No comments recorded yet.</div>'
                 }
             </div>
 
@@ -1365,11 +1237,11 @@
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Slices with Comments:</span>
-                            <span class="badge bg-success">${comments.length > 0 ? Object.keys(evaluatedSlices).filter(s => evaluatedSlices[s].hasComments).length : 0}</span>
+                            <span class="badge bg-success">${Object.keys(commentsBySlice).length}</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>Completion:</span>
-                            <span class="badge bg-info">${this.imageData ? Math.round((Object.keys(evaluatedSlices).length / this.imageData.sizes[2]) * 100) : 0}%</span>
+                            <span class="badge bg-info">${this.imageData ? Math.round((Object.keys(commentsBySlice).length / this.imageData.sizes[2]) * 100) : 0}%</span>
                         </div>
                     </div>
                 </div>
@@ -1379,13 +1251,59 @@
 
     <script>
         function exportToPDF() {
-            // Use the main PDF generation function
-            if (window.HEMAApp && window.HEMAApp.generatePDFReport) {
-                window.HEMAApp.generatePDFReport();
-            } else {
-                console.error('PDF generation function not available');
-                alert('PDF generation is not available. Please try refreshing the page.');
-            }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text('HEMA Medical Report', 20, 20);
+
+            doc.setFontSize(12);
+            doc.text('Generated: ' + new Date().toLocaleString(), 20, 35);
+            doc.text('Total Comments: ${comments.length}', 20, 45);
+            doc.text('Commented Slices: ${Object.keys(commentsBySlice).length}', 20, 55);
+
+            let yPos = 70;
+            ${Object.keys(commentsBySlice).map(slice => `
+                if (yPos > 200) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                doc.setFontSize(14);
+                doc.text('Slice ${parseInt(slice) + 1}', 20, yPos);
+                yPos += 15;
+
+                // Add slice image if available
+                ${commentsBySlice[slice][0].sliceImage ? `
+                    if (yPos > 150) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    try {
+                        const imgData = '${commentsBySlice[slice][0].sliceImage}';
+                        doc.addImage(imgData, 'PNG', 20, yPos, 60, 60);
+                        yPos += 65;
+                    } catch (e) {
+                        console.warn('Could not add image to PDF:', e);
+                    }
+                ` : ''}
+
+                ${commentsBySlice[slice].map(comment => `
+                    if (yPos > 250) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    doc.setFontSize(10);
+                    doc.text('${new Date(comment.timestamp).toLocaleString()}', 25, yPos);
+                    yPos += 7;
+                    doc.setFontSize(11);
+                    const commentLines = doc.splitTextToSize('${comment.text.replace(/'/g, "\\'")}', 160);
+                    doc.text(commentLines, 25, yPos);
+                    yPos += commentLines.length * 7 + 5;
+                `).join('')}
+                yPos += 10;
+            `).join('')}
+
+            doc.save('hema-medical-report.pdf');
         }
     </script>
 </body>
@@ -1566,22 +1484,9 @@
 
         clearCurrentSliceAnnotations: function() {
             console.log('Clearing annotations for slice:', this.currentSlice);
-
-            // Clear the visual annotations from canvas
             if (this.annotationCtx) {
                 this.annotationCtx.clearRect(0, 0, this.annotationCanvas.width, this.annotationCanvas.height);
             }
-
-            // Remove annotations from stored data for current slice
-            if (this.sliceAnnotations && this.sliceAnnotations[this.currentSlice]) {
-                delete this.sliceAnnotations[this.currentSlice];
-                console.log('Deleted stored annotations for slice:', this.currentSlice);
-            }
-
-            // Save the updated annotations to localStorage
-            this.saveSliceAnnotations();
-
-            console.log('Annotations permanently cleared for slice:', this.currentSlice);
         },
 
         toggleCommentsPanel: function() {
@@ -1733,47 +1638,9 @@
             return tempCanvas.toDataURL('image/png');
         },
 
-        captureSliceImageForPDF: function() {
-            // Create a temporary canvas to combine both image and label layers
-            const tempCanvas = document.createElement('canvas');
-
-            // Use the actual canvas dimensions to maintain aspect ratio
-            const sourceWidth = this.imageCanvas.width;
-            const sourceHeight = this.imageCanvas.height;
-
-            // Set canvas to actual dimensions (no stretching)
-            tempCanvas.width = sourceWidth;
-            tempCanvas.height = sourceHeight;
-            const tempCtx = tempCanvas.getContext('2d');
-
-            // Fill with white background
-            tempCtx.fillStyle = '#ffffff';
-            tempCtx.fillRect(0, 0, sourceWidth, sourceHeight);
-
-            // Draw the image canvas first (1:1 ratio)
-            tempCtx.drawImage(this.imageCanvas, 0, 0);
-
-            // Draw the label canvas on top (if visible)
-            if (this.labelOpacity > 0) {
-                tempCtx.globalAlpha = this.labelOpacity;
-                tempCtx.drawImage(this.labelCanvas, 0, 0);
-                tempCtx.globalAlpha = 1;
-            }
-
-            // Draw annotations on top (if visible)
-            if (this.annotationCanvas) {
-                tempCtx.drawImage(this.annotationCanvas, 0, 0);
-            }
-
-            // Convert to base64 image data
-            return tempCanvas.toDataURL('image/png');
-        },
-
         saveComment: function(comment) {
             // Capture current slice image with annotations
-            // Capture and save slice image for report
-            this.captureAndSaveSliceImage(this.currentSlice);
-            comment.sliceImage = this.getSliceImage(this.currentSlice);
+            comment.sliceImage = this.captureSliceImage();
             comment.sliceImageDimensions = {
                 width: this.imageData.sizes[0],
                 height: this.imageData.sizes[1]
@@ -2422,10 +2289,16 @@
 
                 console.log('Found comments:', comments.length);
 
-                // Get comprehensive data for all evaluated slices
-                const evaluatedSlices = this.getAllEvaluatedSliceData();
+                // Group comments by slice
+                const commentsBySlice = {};
+                comments.forEach(comment => {
+                    if (!commentsBySlice[comment.slice]) {
+                        commentsBySlice[comment.slice] = [];
+                    }
+                    commentsBySlice[comment.slice].push(comment);
+                });
 
-                console.log('Evaluated slices:', Object.keys(evaluatedSlices).length);
+                console.log('Comments by slice:', Object.keys(commentsBySlice).length);
 
                 // Professional Header
                 this.addPDFHeader(doc);
@@ -2452,27 +2325,29 @@
                 doc.setTextColor(71, 85, 105);
                 doc.text('Generated: ' + new Date().toLocaleDateString() + ' at ' + new Date().toLocaleTimeString(), 25, currentYPos + 15);
                 doc.text('Total Comments: ' + comments.length, 25, currentYPos + 25);
-                doc.text('Evaluated Slices: ' + this.getEvaluatedSlicesCount(), 25, currentYPos + 35);
+                doc.text('Evaluated Slices: ' + Object.keys(commentsBySlice).length, 25, currentYPos + 35);
 
                 // Add average rating
-                doc.text('Average Rating: ' + this.getAverageRatingDisplay(), 25, currentYPos + 45);
+                const averageRating = this.calculateAverageRating();
+                const ratedSlices = Object.values(this.sliceRatings).filter(r => r > 0).length;
+                doc.text('Average Rating: ' + averageRating + '/10 (based on ' + ratedSlices + ' rated slices)', 25, currentYPos + 45);
 
                 currentYPos = 140; // Move past summary box
 
                 // Track pages for footer
                 let currentPage = 1;
-                const totalPages = Math.ceil(Object.keys(evaluatedSlices).length / 2) + 1; // Estimate
+                const totalPages = Math.ceil(Object.keys(commentsBySlice).length / 2) + 1; // Estimate
 
                 // Add footer to first page
                 this.addPDFFooter(doc, currentPage, totalPages);
 
                 // Add slice data
-                const sortedSlices = Object.entries(evaluatedSlices)
+                const sortedSlices = Object.entries(commentsBySlice)
                     .sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
 
                 console.log('Processing slices:', sortedSlices.length);
 
-                sortedSlices.forEach(([sliceNum, sliceData], index) => {
+                sortedSlices.forEach(([sliceNum, sliceComments], index) => {
                     console.log(`Processing slice ${sliceNum} (${index + 1}/${sortedSlices.length})`);
 
                     const pageHeight = doc.internal.pageSize.getHeight();
@@ -2493,7 +2368,8 @@
                     // Slice header
                     doc.setFontSize(14);
                     doc.setFont(undefined, 'bold');
-                    const sliceTitle = `Slice ${sliceData.sliceNumber + 1}${sliceData.hasRating ? ` - Rating: ${sliceData.rating}/10` : ''}`;
+                    const sliceRating = this.sliceRatings[sliceNum] || 0;
+                    const sliceTitle = `Slice ${parseInt(sliceNum) + 1}${sliceRating > 0 ? ` - Rating: ${sliceRating}/10` : ''}`;
                     doc.text(sliceTitle, margin, currentYPos);
                     currentYPos += 15;
 
@@ -2503,26 +2379,14 @@
                     currentYPos += 10;
 
                     // Left column: Image
-                    const snapshot = sliceData.sliceImage;
+                    const snapshot = this.captureSliceSnapshot(parseInt(sliceNum));
                     let imageHeight = 0;
                     if (snapshot) {
                         try {
                             console.log('Adding image to PDF...');
 
-                            // Get actual image dimensions from storage
-                            const sliceImages = JSON.parse(localStorage.getItem('hema-slice-images') || '{}');
-                            const storedImageData = sliceImages[sliceNum];
-
-                            let actualAspectRatio = 0.75; // Default fallback to 4:3
-                            if (storedImageData && storedImageData.dimensions) {
-                                actualAspectRatio = storedImageData.dimensions.height / storedImageData.dimensions.width;
-                                console.log(`Using actual aspect ratio: ${actualAspectRatio} (${storedImageData.dimensions.width}x${storedImageData.dimensions.height})`);
-                            } else {
-                                console.log('Using fallback aspect ratio: 4:3');
-                            }
-
                             const imageWidth = columnWidth; // Full column width
-                            imageHeight = imageWidth * actualAspectRatio; // Use actual aspect ratio
+                            imageHeight = imageWidth * 0.75; // 4:3 aspect ratio
                             const imageX = margin; // Start at left margin of column
 
                             doc.addImage(snapshot, 'PNG', imageX, currentYPos, imageWidth, imageHeight);
@@ -2535,7 +2399,7 @@
                     const commentsX = margin + columnWidth + margin; // Start of right column
                     let commentsY = currentYPos;
 
-                    if (sliceData.hasComments) {
+                    if (sliceComments.length > 0) {
                         doc.setFontSize(12);
                         doc.setFont(undefined, 'bold');
                         doc.text('Comments:', commentsX, commentsY);
@@ -2544,7 +2408,7 @@
                         doc.setFont(undefined, 'normal');
                         doc.setFontSize(10);
 
-                        sliceData.comments.forEach((comment, commentIndex) => {
+                        sliceComments.forEach((comment, commentIndex) => {
                             // Add bullet point
                             doc.text('•', commentsX, commentsY);
 
@@ -2554,10 +2418,6 @@
                             doc.text(commentLines, commentsX + 8, commentsY);
                             commentsY += (commentLines.length * 5) + 8; // Line height + spacing
                         });
-                    } else if (sliceData.hasRating) {
-                        doc.setFontSize(10);
-                        doc.setFont(undefined, 'italic');
-                        doc.text(`Rated ${sliceData.rating}/10 - No additional comments.`, commentsX, commentsY);
                     } else {
                         doc.setFontSize(10);
                         doc.setFont(undefined, 'italic');
@@ -2720,97 +2580,10 @@
         setSliceRating: function(rating) {
             if (this.imageData && this.currentSlice >= 0) {
                 this.sliceRatings[this.currentSlice] = rating;
-
-                // Capture slice image for report (just like we do for comments)
-                this.captureAndSaveSliceImage(this.currentSlice);
-
                 this.saveRatings();
                 this.updateStarDisplay();
                 console.log(`Set rating ${rating} for slice ${this.currentSlice + 1}`);
             }
-        },
-
-        captureAndSaveSliceImage: function(sliceNumber) {
-            // Capture the current slice image with proper sizing for PDF
-            const sliceImage = this.captureSliceImageForPDF();
-            if (sliceImage) {
-                // Get existing slice images from localStorage
-                const sliceImages = JSON.parse(localStorage.getItem('hema-slice-images') || '{}');
-
-                // Store this slice's image
-                sliceImages[sliceNumber] = {
-                    image: sliceImage,
-                    timestamp: Date.now(),
-                    dimensions: {
-                        width: this.imageCanvas.width,
-                        height: this.imageCanvas.height
-                    }
-                };
-
-                // Save back to localStorage
-                localStorage.setItem('hema-slice-images', JSON.stringify(sliceImages));
-                console.log(`Captured and saved image for slice ${sliceNumber + 1}`);
-            }
-        },
-
-        getSliceImage: function(sliceNumber) {
-            // Get slice image from storage
-            const sliceImages = JSON.parse(localStorage.getItem('hema-slice-images') || '{}');
-            return sliceImages[sliceNumber] ? sliceImages[sliceNumber].image : null;
-        },
-
-        getAllEvaluatedSliceData: function() {
-            // Get slices that should be included in reports:
-            // - Slices with comments (regardless of drawings/ratings)
-            // - Slices with ratings (regardless of drawings/comments)
-            // - Exclude slices with only drawings but no comments or ratings
-            const comments = JSON.parse(localStorage.getItem('hema-comments') || '[]');
-            const evaluatedSlices = {};
-
-            // Group comments by slice
-            const commentsBySlice = {};
-            comments.forEach(comment => {
-                if (!commentsBySlice[comment.slice]) {
-                    commentsBySlice[comment.slice] = [];
-                }
-                commentsBySlice[comment.slice].push(comment);
-            });
-
-            // Create data for evaluated slices that meet inclusion criteria
-            const allSliceNumbers = new Set();
-
-            // Add slices with comments (these should always be included)
-            Object.keys(commentsBySlice).forEach(slice => {
-                allSliceNumbers.add(parseInt(slice));
-            });
-
-            // Add slices with ratings (these should always be included)
-            Object.keys(this.sliceRatings).forEach(slice => {
-                if (this.sliceRatings[slice] > 0) {
-                    allSliceNumbers.add(parseInt(slice));
-                }
-            });
-
-            // Build complete data for each evaluated slice
-            // NOTE: Slices with only drawings (no comments or ratings) are automatically excluded
-            allSliceNumbers.forEach(sliceNum => {
-                const hasComments = commentsBySlice[sliceNum] && commentsBySlice[sliceNum].length > 0;
-                const hasRating = this.sliceRatings[sliceNum] > 0;
-
-                // Only include if slice has comments OR ratings (not just drawings)
-                if (hasComments || hasRating) {
-                    evaluatedSlices[sliceNum] = {
-                        sliceNumber: sliceNum,
-                        comments: commentsBySlice[sliceNum] || [],
-                        rating: this.sliceRatings[sliceNum] || 0,
-                        sliceImage: this.getSliceImage(sliceNum),
-                        hasComments: hasComments,
-                        hasRating: hasRating
-                    };
-                }
-            });
-
-            return evaluatedSlices;
         },
 
         highlightStars: function(rating) {
@@ -2844,46 +2617,6 @@
 
             const sum = ratings.reduce((a, b) => a + b, 0);
             return (sum / ratings.length).toFixed(1);
-        },
-
-        getEvaluatedSlicesCount: function() {
-            // Count slices that should be included in reports:
-            // - Slices with comments (regardless of drawings/ratings)
-            // - Slices with ratings (regardless of drawings/comments)
-            // - Exclude slices with only drawings but no comments or ratings
-            const commentsSlices = new Set();
-            const ratingsSlices = new Set();
-
-            // Get slices with comments
-            const comments = JSON.parse(localStorage.getItem('hema-comments') || '[]');
-            comments.forEach(comment => {
-                if (comment.slice !== undefined && comment.slice !== null) {
-                    commentsSlices.add(comment.slice);
-                }
-            });
-
-            // Get slices with ratings
-            Object.keys(this.sliceRatings).forEach(slice => {
-                if (this.sliceRatings[slice] > 0) {
-                    ratingsSlices.add(parseInt(slice));
-                }
-            });
-
-            // Combine both sets (union) to get total evaluated slices
-            // NOTE: This automatically excludes slices with only drawings (no comments or ratings)
-            const evaluatedSlices = new Set([...commentsSlices, ...ratingsSlices]);
-            return evaluatedSlices.size;
-        },
-
-        getAverageRatingDisplay: function() {
-            const ratedSlices = Object.values(this.sliceRatings).filter(r => r > 0).length;
-
-            if (ratedSlices === 0) {
-                return 'No ratings provided';
-            }
-
-            const averageRating = this.calculateAverageRating();
-            return `${averageRating}/10 (based on ${ratedSlices} rated slice${ratedSlices === 1 ? '' : 's'})`;
         },
 
         addPDFHeader: function(doc) {
@@ -3095,25 +2828,17 @@
 
         handleImageLoaded: function(imageData) {
             console.log('Image loaded, checking for label data');
-            console.log('Has both files?', this.fileHandler.hasBothFiles());
 
             if (this.fileHandler.hasBothFiles()) {
-                console.log('Both files loaded - setting up viewer');
                 this.setupSegmentationViewer();
-            } else {
-                console.log('Waiting for label file...');
             }
         },
 
         handleLabelLoaded: function(labelData) {
             console.log('Label loaded, checking for image data');
-            console.log('Has both files?', this.fileHandler.hasBothFiles());
 
             if (this.fileHandler.hasBothFiles()) {
-                console.log('Both files loaded - setting up viewer');
                 this.setupSegmentationViewer();
-            } else {
-                console.log('Waiting for image file...');
             }
         },
 
@@ -3127,13 +2852,10 @@
                 }
 
                 // Validate dimensions match
-                console.log('Validating dimensions...');
                 if (!this.fileHandler.validateDimensions()) {
-                    console.error('Dimension validation failed!');
                     this.errorHandler.showDimensionError();
                     return;
                 }
-                console.log('Dimensions validated successfully');
 
                 // Load data into viewer
                 this.segmentationViewer.loadData(imageData, labelData);
