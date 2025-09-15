@@ -1068,6 +1068,19 @@
             localStorage.clear(); // NUCLEAR - destroys everything
             console.log('✅ localStorage completely wiped');
 
+            // === DISABLE ANNOTATION SYSTEM COMPLETELY ===
+            console.log('💥 Step 2: DISABLING annotation system...');
+            if (this.segmentationViewer) {
+                // Override annotation functions to do nothing
+                this.segmentationViewer.startAnnotation = function() { console.log('⚠️ Annotations DISABLED after nuclear reset'); };
+                this.segmentationViewer.continueAnnotation = function() { console.log('⚠️ Annotations DISABLED after nuclear reset'); };
+                this.segmentationViewer.endAnnotation = function() { console.log('⚠️ Annotations DISABLED after nuclear reset'); };
+                this.segmentationViewer.saveCurrentDrawingAsVector = function() { console.log('⚠️ Saving DISABLED after nuclear reset'); };
+                this.segmentationViewer.saveSliceAnnotations = function() { console.log('⚠️ Saving DISABLED after nuclear reset'); };
+
+                console.log('✅ Annotation system COMPLETELY DISABLED');
+            }
+
             // === Clear in-memory data ===
             // Reset slice ratings
             this.sliceRatings = {};
@@ -1151,11 +1164,22 @@
                 this.saveRatings();
             }
 
-            // Force save empty data structures to localStorage - MULTIPLE ATTEMPTS
-            localStorage.setItem('hema-comments', JSON.stringify([]));
-            localStorage.setItem('hema-slice-images', JSON.stringify({}));
-            localStorage.setItem('hema-slice-vector-annotations', JSON.stringify({}));
-            localStorage.setItem('hema-slice-ratings', JSON.stringify({}));
+            // === PREVENT localStorage RECREATION ===
+            console.log('💥 Step 3: Preventing localStorage recreation...');
+
+            // Override localStorage.setItem to prevent recreation of hema-* keys
+            const originalSetItem = localStorage.setItem;
+            localStorage.setItem = function(key, value) {
+                if (key.startsWith('hema-')) {
+                    console.log('🚫 BLOCKED localStorage.setItem for:', key);
+                    return; // Block all hema-* localStorage writes
+                }
+                return originalSetItem.call(this, key, value);
+            };
+
+            console.log('✅ localStorage recreation BLOCKED');
+
+            // DON'T recreate the localStorage items - leave them gone forever
 
             // Verify clearing with delay to handle async operations
             setTimeout(() => {
@@ -1195,14 +1219,40 @@
                 this.highlightStars(0);
             }
 
-            // Clear any active tool selections
+            // DISABLE all drawing tools permanently
             const toolButtons = ['panTool', 'drawTool', 'eraseTool', 'commentTool'];
             toolButtons.forEach(buttonId => {
                 const btn = Utils.getElementById(buttonId);
                 if (btn) {
                     btn.classList.remove('active');
+                    if (buttonId !== 'panTool') { // Keep pan tool enabled
+                        btn.disabled = true;
+                        btn.style.opacity = '0.3';
+                        btn.title = 'DISABLED - Refresh page to re-enable drawing tools';
+                    }
                 }
             });
+
+            // Show permanent warning in UI
+            const container = Utils.getElementById('annotation-container');
+            if (container) {
+                const warning = document.createElement('div');
+                warning.style.cssText = `
+                    position: absolute;
+                    top: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(220, 53, 69, 0.9);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    z-index: 1000;
+                    text-align: center;
+                `;
+                warning.innerHTML = '⚠️ ANNOTATIONS DISABLED - Refresh page to re-enable ⚠️';
+                container.appendChild(warning);
+            }
 
             // === Re-render and update display ===
             // Force clear canvas multiple times and re-render to ensure clean state
@@ -1344,13 +1394,16 @@
                     <p><strong>💥 ALL localStorage DESTROYED</strong></p>
                     <p><strong>💥 ALL annotations OBLITERATED from memory</strong></p>
                     <p><strong>💥 Canvas NUKED and reset 10 times</strong></p>
-                    <p><strong>💥 Everything COMPLETELY DESTROYED</strong></p>
+                    <p><strong>💥 Annotation system COMPLETELY DISABLED</strong></p>
                     <br>
                     <p style="color: #dc3545; font-weight: bold;">
                         NOTHING SURVIVED THE NUCLEAR OPTION!
                     </p>
+                    <p style="color: #ffc107; font-weight: bold;">
+                        ⚠️ Drawing tools are now DISABLED ⚠️
+                    </p>
                     <p style="color: #28a745; font-weight: bold;">
-                        Ready for a completely fresh start!
+                        Refresh the page (F5) to re-enable annotation tools
                     </p>
                 </div>
                 <button id="resetOkButton" style="
