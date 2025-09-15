@@ -1,0 +1,283 @@
+/* ============================================
+   HEMA - Dark Theme Styles
+   Professional Medical Evaluation Interface
+   ============================================ */
+
+/* Dark Theme Variables */
+:root {
+    --bg-dark-primary: #0f172a;
+    --bg-dark-secondary: #1e293b;
+    --bg-dark-tertiary: #334155;
+    --text-light: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-dark: rgba(71, 85, 105, 0.3);
+    --accent-green: #10b981;
+    --accent-blue: #3b82f6;
+    --accent-red: #dc2626;
+    --accent-gold: #fbbf24;
+}
+
+/* Global Dark Theme Body */
+body {
+    background: linear-gradient(135deg, var(--bg-dark-primary) 0%, var(--bg-dark-secondary) 100%);
+    color: var(--text-light);
+    min-height: 100vh;
+}
+
+/* Professional Button Hover Effects */
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Annotation tool active state */
+.btn.active {
+    background: linear-gradient(135deg, var(--accent-blue), #1d4ed8) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Card Hover Effects */
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Modern Gradient Buttons */
+.btn-gradient {
+    background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+}
+
+/* Form Controls Dark Theme */
+.form-control {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-dark);
+    color: var(--text-light);
+    border-radius: 8px;
+}
+
+.form-control:focus {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    color: var(--text-light);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+/* Range Sliders */
+.form-range {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-radius: 8px !important;
+    height: 8px !important;
+}
+
+.form-range::-webkit-slider-track {
+    background: rgba(71, 85, 105, 0.5) !important;
+    border-radius: 8px !important;
+    height: 8px !important;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--accent-blue) !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3) !important;
+    transition: all 0.2s ease !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: -6px !important;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5) !important;
+}
+
+.form-range::-moz-range-track {
+    background: rgba(71, 85, 105, 0.5) !important;
+    border-radius: 8px !important;
+    height: 8px !important;
+    border: none !important;
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--accent-blue) !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer !important;
+}
+
+/* Ensure slider value badges are always visible */
+#sliceInfo, #opacityValue {
+    background: var(--accent-blue) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+#sliceInfo {
+    background: var(--accent-green) !important;
+}
+
+/* Form labels enhanced visibility */
+.form-label {
+    color: var(--text-light) !important;
+    font-weight: 600 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark theme for controls section */
+#controls .card-body,
+#controls .control-group,
+#controls .d-flex {
+    background: transparent !important;
+    color: var(--text-light) !important;
+}
+
+#controls .row {
+    background: transparent !important;
+}
+
+/* Ensure all elements in controls are dark themed */
+#controls * {
+    color: var(--text-light) !important;
+}
+
+#controls .form-label,
+#controls label {
+    color: var(--text-light) !important;
+}
+
+/* Professional Icons */
+.icon-wrapper {
+    transition: all 0.3s ease;
+}
+
+.icon-wrapper:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Backdrop Blur Support */
+@supports (backdrop-filter: blur(20px)) {
+    .backdrop-blur {
+        backdrop-filter: blur(20px);
+    }
+}
+
+/* Modern Focus States */
+.btn:focus,
+.btn:focus-visible {
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+/* Professional Text Selection */
+::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: var(--text-light);
+}
+
+/* Loading States */
+.btn.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-dark-tertiary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-dark);
+}
+
+/* Star Rating Styles */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.star {
+    color: #64748b;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    user-select: none;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.star:hover {
+    color: #fbbf24;
+    transform: scale(1.1);
+}
+
+.star.active {
+    color: #fbbf24;
+}
+
+.star.half {
+    color: #fbbf24;
+}
